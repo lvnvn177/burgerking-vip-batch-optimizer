@@ -15,7 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
            "WHERE o.orderDate BETWEEN :startDate AND :endDate " +
            "AND o.status = 'COMPLETED' " +
            "GROUP BY o.member.id")
-    List<Object[]> findTotalAmountByMemberInperiod(@Param("startDate") LocalDateTime
+    List<Object[]> findTotalAmountByMemberInPeriod(@Param("startDate") LocalDateTime
 startDateTime, @Param("endDate") LocalDateTime endDate);
 
      @Query("SELECT o FROM Order o WHERE o.member.id = :memberId AND o.orderDate BETWEEN :startDate AND :endDate")
