@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 
-@Entity
+@Entity   // 회원정보 테이블, 이름 | 이메일 | 전화번호 | 멤버십 등급 | 마지막 등급 갱신일   
 @Table(name = "member")
 @Getter @Setter
 @NoArgsConstructor

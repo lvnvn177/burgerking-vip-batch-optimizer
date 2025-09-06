@@ -1,0 +1,1185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="BurgerKing VIP Batch Performance Test ">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="0. 베이스라인 성능 측정">
+        <intProp name="ThreadGroup.num_threads">100</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">10</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="회원 목록 조회 API">
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/api/members</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="1. 동시 사용자 트래픽">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="배치 실행 전 - 회원 상세 조회 API">
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.path">/api/members/1</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="비최적화 배치 실행 ">
+          <stringProp name="HTTPSampler.path">/api/batch/run-non-optimized</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
+1756364882753,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364882761,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882765,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882769,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882773,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882776,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882779,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364882781,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882784,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882787,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-1,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882857,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364882863,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882866,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882870,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882874,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882877,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882880,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882884,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882887,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882890,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-2,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364882957,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364882962,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882965,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882969,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364882972,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364882976,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364882982,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364882989,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364882996,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364883003,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-3,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883058,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364883065,9,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,0
+1756364883108,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883112,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883115,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883117,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883120,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364883122,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883125,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883128,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-4,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883153,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364883158,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883162,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883166,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883169,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883172,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883176,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883179,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883183,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883186,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-5,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883256,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364883261,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883265,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883269,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883272,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883275,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883278,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883282,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883285,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883288,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-6,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883358,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883362,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883366,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883369,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883372,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883375,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883379,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883382,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883385,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883388,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-7,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883459,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364883464,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883468,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883471,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883475,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883479,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883482,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883486,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883489,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883493,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-8,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883557,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364883562,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883611,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883614,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883617,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883620,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883623,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883626,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883630,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883633,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-9,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883657,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364883661,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883665,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883667,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883670,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883673,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883677,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883680,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883683,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883685,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-10,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883756,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364883763,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883770,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883773,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883776,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883779,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883782,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883785,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883788,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-11,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883857,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883861,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883865,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883868,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883871,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883874,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883877,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883880,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883883,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883886,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-12,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883954,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364883960,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883963,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883967,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883970,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883973,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883976,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883980,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364883983,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364883986,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-13,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884058,8,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364884066,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884070,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884121,8,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364884129,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884133,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884136,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884139,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884141,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884146,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-14,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884154,15,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,11,0,0
+1756364884169,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364884174,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884177,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884180,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884183,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884186,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884190,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884194,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884198,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-15,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884257,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884261,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884264,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884267,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884270,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884273,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884276,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884279,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884281,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884284,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-16,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884357,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364884362,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884365,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884368,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884371,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884374,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884376,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884379,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884382,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884384,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-17,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884458,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364884463,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884467,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884470,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884473,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884476,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884479,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884483,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884486,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884489,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-18,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884554,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364884559,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884562,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884566,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884570,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884574,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884624,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364884631,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884634,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884637,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-19,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884657,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364884662,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884665,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884668,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884672,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884674,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884677,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884679,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884682,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884685,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-20,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884760,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364884766,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884769,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884772,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884775,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884778,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884781,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884784,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884787,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884790,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-21,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884858,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884863,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884867,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884870,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884873,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884876,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884879,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884883,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884886,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884888,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-22,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884955,8,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,7,0,0
+1756364884964,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884967,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884970,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884974,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884977,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884981,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884984,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364884987,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364884990,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-23,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885054,10,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,9,0,1
+1756364885065,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885068,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885072,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885075,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885130,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364885137,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885140,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885143,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885145,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-24,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885157,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364885161,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885164,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885167,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885170,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885173,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885175,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885178,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885181,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885184,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-25,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885257,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364885263,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885266,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885270,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885273,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885277,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885280,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885283,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885286,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885289,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-26,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885359,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364885363,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885367,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885370,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885373,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885376,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885379,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885381,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885384,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885387,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-27,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885454,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364885458,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885462,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885465,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885468,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885471,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885474,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885477,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885480,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885483,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-28,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885556,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364885560,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885563,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885567,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885570,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885573,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885576,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885579,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885633,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364885639,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-29,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885657,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885661,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885664,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885670,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885673,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885676,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885679,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885681,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885684,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885687,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-30,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885754,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364885760,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885764,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885768,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885771,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885774,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885776,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885780,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885782,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885786,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-31,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885858,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364885864,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885868,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885872,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885875,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885879,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885883,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885886,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885890,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885893,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-32,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885955,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,1
+1756364885962,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885965,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364885969,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885972,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885976,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885979,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364885984,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885987,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364885991,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-33,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886056,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364886063,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364886068,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886071,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886075,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886078,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886082,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886086,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886139,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364886146,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-34,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886154,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886158,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886160,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886163,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886167,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886170,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886173,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886176,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886179,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886182,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-35,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886253,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364886257,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886260,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886263,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886266,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886268,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886271,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886274,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886276,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886279,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-36,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886356,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364886361,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886364,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886367,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886370,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886372,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886376,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886379,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886381,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886385,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-37,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886457,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886461,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886465,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886469,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886477,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886481,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886484,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886487,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886491,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886494,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-38,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886555,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364886559,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886563,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886565,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886568,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886570,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886572,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886574,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886577,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886579,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-39,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886655,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886658,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886661,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886664,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886667,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886670,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886672,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886675,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886677,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886680,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-40,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886753,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364886758,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886760,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886764,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886770,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886773,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886776,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886778,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886781,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-41,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886857,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886861,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886865,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886868,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886871,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886874,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886878,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886881,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886884,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886887,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-42,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886959,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364886963,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364886967,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886970,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886974,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886977,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886980,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886983,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886986,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364886989,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-43,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887059,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364887064,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887067,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887071,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887074,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887078,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887081,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887086,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887089,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887093,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-44,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887154,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364887160,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887163,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887166,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887169,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887171,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887176,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887179,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887182,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887185,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-45,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887258,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364887264,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887269,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887272,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887275,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887278,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887281,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887285,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887288,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887291,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-46,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887354,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364887359,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887362,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887366,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887369,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887372,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887374,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887377,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887381,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887384,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-47,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887458,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364887464,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887467,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887471,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887474,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887477,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887481,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887484,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887488,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887491,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-48,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887558,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,0
+1756364887565,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887568,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887572,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887575,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887578,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887581,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887584,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887587,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887591,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-49,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364887656,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364887662,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887665,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887668,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887671,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887674,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887677,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887679,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887682,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887685,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-50,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887758,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364887763,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887770,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887774,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887777,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887781,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887784,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887787,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887790,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-51,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887854,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,0
+1756364887861,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364887866,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887869,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887872,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887876,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887879,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887882,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887885,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887888,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-52,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887958,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,2
+1756364887965,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887969,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887973,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887977,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887981,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887983,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887986,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364887990,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364887992,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-53,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888058,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,1
+1756364888065,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888068,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888072,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888075,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888078,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888081,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888084,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888088,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888091,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-54,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888157,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364888163,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888166,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888169,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888172,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888175,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888177,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888180,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888183,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888185,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-55,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888253,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364888259,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888263,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888265,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888269,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888272,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888275,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888278,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888281,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888285,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-56,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888356,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364888361,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888365,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888369,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888372,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888375,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888378,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888382,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888385,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888388,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-57,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888466,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888470,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888473,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888475,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888478,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888481,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888484,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888486,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888489,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888492,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-58,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888558,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,0
+1756364888565,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888568,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888572,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888575,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888579,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888583,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888585,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888589,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888592,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-59,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888653,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364888660,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888663,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888666,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888668,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888671,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888674,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888677,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888679,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888684,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-60,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888758,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888762,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888765,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888769,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888772,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888776,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888779,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888782,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888785,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888788,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-61,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888857,8,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364888865,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888868,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888872,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888875,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888878,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888881,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888884,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888887,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888890,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-62,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888953,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364888958,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888963,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888966,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888969,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364888973,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888975,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888979,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888982,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364888985,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-63,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889059,9,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,7,0,1
+1756364889068,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889071,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364889076,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889079,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889083,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889087,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889091,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889094,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889097,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-64,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889154,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364889158,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889160,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889162,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889165,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889167,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889170,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889172,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889174,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889177,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-65,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889258,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364889264,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889268,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889271,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889275,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889277,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889280,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889283,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889285,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889288,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-66,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889354,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364889361,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889364,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889368,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889372,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889375,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889379,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889382,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889386,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889389,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-67,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889459,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364889465,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889469,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889473,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889476,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889479,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889482,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889485,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889488,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889491,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-68,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889556,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889560,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889563,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889567,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889570,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889573,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889576,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889579,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889582,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889585,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-69,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889657,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364889663,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889666,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889668,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889671,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889674,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889676,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889679,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364889681,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889684,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-70,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889754,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364889760,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889764,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889770,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889773,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889776,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889779,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889782,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889785,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-71,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889856,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364889861,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889864,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889868,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889870,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889873,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889875,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889878,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889880,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889883,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-72,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364889958,8,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,7,0,1
+1756364889967,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889971,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889974,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889977,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889980,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889983,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889987,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364889990,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364889994,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-73,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890054,17,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,17,0,1
+1756364890071,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890075,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890077,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890080,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890083,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890085,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890088,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890091,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890094,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-74,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890156,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364890161,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890164,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890168,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890171,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890173,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890176,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890179,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890182,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890185,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-75,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890254,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364890261,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890265,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890271,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890275,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890278,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890282,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890285,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890288,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890290,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-76,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890358,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364890365,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890368,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890371,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890375,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890378,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890381,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890385,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890388,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890391,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-77,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890456,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364890462,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890466,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890468,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890472,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890474,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890477,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890480,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890483,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890485,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-78,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890558,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,2
+1756364890565,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890568,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890572,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890575,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890578,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890581,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890584,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890588,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890591,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-79,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890654,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,1
+1756364890662,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890666,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890669,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890672,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890675,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890678,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890681,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890684,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890687,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-80,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890757,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364890764,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890770,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890773,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890776,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890778,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890781,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890784,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890786,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-81,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890855,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890858,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890862,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890865,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890868,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890871,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890874,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890877,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890880,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890883,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-82,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890956,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364890961,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890964,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890968,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890971,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890974,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890977,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364890980,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890984,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364890986,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-83,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891056,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364891061,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891064,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891067,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891071,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891075,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891079,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891082,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891086,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891090,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-84,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891157,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891161,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891164,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364891168,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891172,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891175,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891178,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891181,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891184,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891187,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-85,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891253,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,1
+1756364891257,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891260,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891263,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891265,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891268,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891271,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891273,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891276,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891278,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-86,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891358,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891362,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891365,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891369,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891371,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891374,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891377,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891380,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891382,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891385,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-87,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891455,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891459,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891462,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891466,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891469,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891472,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891475,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891478,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891482,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891485,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-88,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891554,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891558,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891560,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891563,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891566,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891569,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891571,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891574,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891576,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891579,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-89,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891657,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364891679,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891682,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891686,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891689,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891691,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891694,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891696,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891699,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891701,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-90,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891758,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891761,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891764,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891767,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891770,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891772,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364891777,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891779,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891782,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891785,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-91,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364891856,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364891860,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891863,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891866,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891869,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891872,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891875,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891878,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891880,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891883,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-92,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891958,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,1
+1756364891962,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891965,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891969,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891972,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891975,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891978,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891981,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891984,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364891987,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-93,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892056,6,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,5,0,1
+1756364892063,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892067,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892070,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892074,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892078,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892082,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892086,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892088,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892091,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-94,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892155,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364892167,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892170,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892174,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892177,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892179,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892182,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892185,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364892187,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892190,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-95,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892256,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,4,0,0
+1756364892263,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892267,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892270,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892272,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892276,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892278,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892281,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892284,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892287,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-96,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892355,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364892360,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892363,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892367,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892370,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892373,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892376,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892379,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892383,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892386,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-97,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892454,9,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364892464,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892467,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892470,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892473,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892476,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892480,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892483,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892486,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892490,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-98,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892557,7,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,6,0,1
+1756364892564,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892568,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892573,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892576,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892580,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892583,4,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892587,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892590,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892594,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-99,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892656,5,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,3,0,0
+1756364892665,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892668,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892671,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,2,0,0
+1756364892674,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892677,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892679,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892682,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0
+1756364892685,2,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,0,0,0
+1756364892687,3,회원 목록 조회 API,200,,0. 베이스라인 성능 측정 1-100,text,true,,62171,127,1,1,http://localhost:8080/api/members,1,0,0

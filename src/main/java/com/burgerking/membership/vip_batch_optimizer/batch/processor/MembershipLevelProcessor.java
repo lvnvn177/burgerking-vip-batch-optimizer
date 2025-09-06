@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+
 @Component
 @RequiredArgsConstructor
 public class MembershipLevelProcessor implements ItemProcessor<Member, Member> {
@@ -17,7 +19,7 @@ public class MembershipLevelProcessor implements ItemProcessor<Member, Member> {
     private final OrderRepository orderRepository;
 
     @Override
-    public Member process(Member member) throws Exception {
+    public Member process(@SuppressWarnings("null") Member member) throws Exception {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startOfLastMonth = now.minusMonths(1).withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
         LocalDateTime endOfLastMonth = now.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).minusSeconds(1);

@@ -103,7 +103,6 @@ public class DummyDataGenerator {
             LocalDateTime orderDate = now.minusDays(randomDays).minusHours(randomHours);
             order.setOrderDate(orderDate);
 
-    
             // 주문 상태 설정 (95%는 완료, 5%는 취소)
             if (random.nextInt(100) < 95) {
                 order.setStatus(OrderStatus.COMPLETED);
@@ -133,7 +132,7 @@ public class DummyDataGenerator {
      @Transactional
      public void generateMassiveData(int memberCount, int orderCount) {
         // 회원 생성 시작 
-        System.out.println("대규모 더미 데이터 생성: " + memberCount + "명의 회원, " + orderCount + "건의 주문");
+        System.out.println("대규모 더미 데이터 생성: " + memberCount + "명의 회원, " + orderCount + "건의 주문");
         long startTime = System.currentTimeMillis();
 
         // 기본 생성 메소드 활용, 더 큰 단위로 처리

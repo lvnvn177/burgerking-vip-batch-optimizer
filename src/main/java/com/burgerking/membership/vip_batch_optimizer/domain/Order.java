@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity  // 주문 테이블, 회원ID | 주문금액 | 주문일자 | 주문상태
 @Table(name = "orders")
 @Getter @Setter
 @NoArgsConstructor
@@ -30,7 +30,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-   private BigDecimal amount;
+    private BigDecimal amount;
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
