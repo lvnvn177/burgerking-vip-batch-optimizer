@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # Redis 서버 (공통으로 사용하거나, 필요한 경우 각 서비스별로 분리 가능)
+  redis:
+    image: redis:6.2-alpine
+    container_name: burgerking_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - burgerking_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Coupon Service Database
+  coupon_db:
+    image: mysql:8.0
+    container_name: burgerking_coupon_db
+    ports:
+      - "3306:3306" # Local:3306 -> Container:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password # 개발용, 실제 환경에서는 사용 금지
+      MYSQL_DATABASE: coupon_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - coupon_db_data:/var/lib/mysql
+      - ./mysql/coupon/init.sql:/docker-entrypoint-initdb.d/init.sql # 초기 스키마 및 데이터
+    networks:
+      - burgerking_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Membership Service Database
+  membership_db:
+    image: mysql:8.0
+    container_name: burgerking_membership_db
+    ports:
+      - "3307:3306" # Local:3307 -> Container:3306 (포트 충돌 방지)
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: membership_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - membership_db_data:/var/lib/mysql
+      - ./mysql/membership/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - burgerking_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Reservation Service Database
+  reservation_db:
+    image: mysql:8.0
+    container_name: burgerking_reservation_db
+    ports:
+      - "3308:3306" # Local:3308 -> Container:3306 (포트 충돌 방지)
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: reservation_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - reservation_db_data:/var/lib/mysql
+      - ./mysql/reservation/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - burgerking_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  redis_data:
+  coupon_db_data:
+  membership_db_data:
+  reservation_db_data:
+
+networks:
+  burgerking_network:
+    driver: bridge
