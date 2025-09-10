@@ -39,3 +39,7 @@ out/
 
 ## DOC ##
 Doc/
+
+
+# Docker volumes
+*.db_data/

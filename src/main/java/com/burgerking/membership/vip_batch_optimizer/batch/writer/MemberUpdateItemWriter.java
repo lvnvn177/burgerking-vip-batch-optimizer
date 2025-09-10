@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class MemberUpdateItemWriter implements ItemWriter<Member> {
     }
 
     @Override
-    public void write(Chunk<? extends Member> membersChunk) throws Exception {
+    public void write(@NonNull Chunk<? extends Member> membersChunk) throws Exception {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 

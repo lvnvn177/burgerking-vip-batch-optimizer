@@ -1,0 +1,64 @@
+# src/main/resources/application.yml (공통 설정)
+spring:
+  application:
+    name: vip-batch-optimizer
+  profiles:
+    active: dev # 기본적으로 개발 프로파일 활성화
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        '[format_sql]': true
+    show-sql: true
+    open-in-view: false
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
+---
+# 개발 환경 설정 (H2 사용)
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    '[com.burgerking]': DEBUG
+    '[org.hibernate.SQL]': DEBUG
+    '[org.hibernate.type.descriptor.sql.BasicBinder]': TRACE
+
+---
+# 쿠폰 서비스 MySQL 설정 (Docker Compose 사용 시)
+spring:
+  config:
+    activate:
+      on-profile: coupon
+  datasource:
+    url: jdbc:mysql://localhost:3306/coupon_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
