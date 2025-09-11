@@ -12,6 +12,11 @@ public interface CouponService {
     // 쿠폰 발급 (사용자에게 쿠폰 발급)
     CouponResponse issueCoupon(Long couponId, Long userId);
 
+    CouponResponse issueCouponWithPessimisticLock(Long couponId, Long userId);
+    CouponResponse issueCouponWithOptimisticLock(Long couponId, Long userId);
+    CouponResponse issueCouponWithAtomicOperation(Long couponId, Long userId);
+    CouponResponse issueCouponWithRedisLock(Long couponId, Long userId);
+
     // 쿠폰 사용
     boolean useCoupon(String couponCode, String orderReference);
 

@@ -47,4 +47,6 @@ public class CouponRequest {
     @Min(value = 1, message = "총 발행 수량은 1개 이상이어야 합니다")
     private Integer totalQuantity;
 
+    private BigDecimal minimumOrderAmount;
+
 }

@@ -182,4 +182,33 @@ public class CouponServiceNonOptimized implements CouponService{
     private String generateUniqueCouponCode() {
         return "CP_" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
+
+
+    @Override
+    @Transactional
+    public CouponResponse issueCouponWithPessimisticLock(Long couponId, Long userId) {
+        // 비최적화 서비스에서는 기본 발급 메소드를 호출
+        return issueCoupon(couponId, userId);
+    }
+
+    @Override
+    @Transactional
+    public CouponResponse issueCouponWithOptimisticLock(Long couponId, Long userId) {
+        // 비최적화 서비스에서는 기본 발급 메소드를 호출
+        return issueCoupon(couponId, userId);
+    }
+
+    @Override
+    @Transactional
+    public CouponResponse issueCouponWithAtomicOperation(Long couponId, Long userId) {
+        // 비최적화 서비스에서는 기본 발급 메소드를 호출
+        return issueCoupon(couponId, userId);
+    }
+
+    @Override
+    @Transactional
+    public CouponResponse issueCouponWithRedisLock(Long couponId, Long userId) {
+        // 비최적화 서비스에서는 기본 발급 메소드를 호출
+        return issueCoupon(couponId, userId);
+    }
 }
