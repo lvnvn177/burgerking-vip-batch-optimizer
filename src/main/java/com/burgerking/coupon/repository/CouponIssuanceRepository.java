@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface CouponIssuanceRepository extends JpaRepository<CouponIssuance, Long> {
@@ -17,4 +18,6 @@ public interface CouponIssuanceRepository extends JpaRepository<CouponIssuance, 
 
     // 고유 쿠폰 코드로 발급 내역 찾기 ex) 쿠폰 사용 시 유효성 검사
     Optional<CouponIssuance> findByCouponCode(String couponCode);
+
+    List<CouponIssuance> findByUserId(Long userId);
 }

@@ -79,4 +79,24 @@ public class CouponIssuance {
         orderReference = orderRef;
         return true;
     }
+
+    // 쿠폰 만료 처리 메서드
+    public void expire() {
+        if (status == CouponStatus.ACTIVE) {
+            status = CouponStatus.EXPIRED;
+        }
+    }
+
+    // 쿠폰 취소 처리 메서드 (사용 후 취소 등의 상황)
+    public boolean cancel() {
+        if (status != CouponStatus.USED) {
+            return false; // 사용된 상태가 아니면 취소 불가
+        }
+
+        // 사용 취소 처리
+        status = CouponStatus.ACTIVE;
+        usedAt = null;
+        orderReference = null;
+        return true;
+    }
 }

@@ -24,7 +24,7 @@ public class CouponResponse {
     private BigDecimal discountAmount; // 할인 금액 또는 비율
     private boolean isPercentage; // 퍼센트 할인 여부
     private LocalDateTime issuedAt; // 발급 시간
-    private LocalDateTime expireAt; // 만료 시간
+    private LocalDateTime expiresAt; // 만료 시간
     private LocalDateTime startDate; // 쿠폰 유효 시작일 
     private LocalDateTime endDate; // 쿠폰 유효 종료일 
 }

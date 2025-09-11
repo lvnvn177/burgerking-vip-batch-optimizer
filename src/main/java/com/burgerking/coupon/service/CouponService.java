@@ -1,7 +1,5 @@
 package com.burgerking.coupon.service;
 
-import com.burgerking.coupon.domain.Coupon;
-import com.burgerking.coupon.domain.CouponIssuance;
 import com.burgerking.coupon.web.dto.CouponRequest;
 import com.burgerking.coupon.web.dto.CouponResponse;
 
