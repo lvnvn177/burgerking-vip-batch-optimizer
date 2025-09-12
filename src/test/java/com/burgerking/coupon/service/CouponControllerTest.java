@@ -4,7 +4,7 @@ package com.burgerking.coupon.service;
 import com.burgerking.coupon.web.CouponController;
 import com.burgerking.coupon.web.dto.CouponIssueRequest;
 import com.burgerking.coupon.web.dto.CouponResponse;
-import com.burgerking.coupon.web.exception.CouponException;
+import com.burgerking.coupon.exception.CouponException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -105,7 +105,7 @@ public class CouponControllerTest {
         CouponIssueRequest request = new CouponIssueRequest(100L, 2L);
 
         given(couponService.issueCoupon(2L, 100L)) 
-            .willThrow(CouponException.couponSoldout());
+            .willThrow(CouponException.couponSoldOut());
         
 
         // When & Then
