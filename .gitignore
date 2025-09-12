@@ -43,3 +43,5 @@ Doc/
 
 # Docker volumes
 *.db_data/
+
+Test.java
