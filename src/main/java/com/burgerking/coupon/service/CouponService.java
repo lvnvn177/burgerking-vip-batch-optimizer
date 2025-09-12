@@ -1,7 +1,10 @@
 package com.burgerking.coupon.service;
 
+import com.burgerking.common.lock.DistributedLockOperation;
 import com.burgerking.coupon.web.dto.CouponRequest;
 import com.burgerking.coupon.web.dto.CouponResponse;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +13,8 @@ import java.util.Optional;
 public interface CouponService {
     
     // 쿠폰 발급 (사용자에게 쿠폰 발급)
+    @Transactional  
+    @DistributedLockOperation(key = "coupon:issue:#couponId", timeoutMs = 3000)
     CouponResponse issueCoupon(Long couponId, Long userId);
 
     CouponResponse issueCouponWithPessimisticLock(Long couponId, Long userId);
