@@ -1,7 +1,5 @@
-package com.burgerking.common.lock;
+package com.burgerking.common.exception;
 
-import com.burgerking.common.exception.BusinessException;
-import com.burgerking.common.exception.LockErrorCodes;
 
 /**
  * 락 획득 실패 시 발생하는 예외
