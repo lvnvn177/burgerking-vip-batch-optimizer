@@ -4,10 +4,10 @@ import com.burgerking.coupon.domain.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+import java.util.List;
 @Repository
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
   
-    Optional<Coupon> findByName(String name); // 쿠폰 이름으로 찾기 예시
+   // CouponRepository 인터페이스에서
+    List<Coupon> findByName(String name);
 }
