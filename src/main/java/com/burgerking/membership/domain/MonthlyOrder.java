@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 
 @Entity
-@Table(name = "monthly_orders")
+@Table(name = "monthly_orders", indexes = {
+    @Index(name = "idx_monthly_orders_user_id_year_month", columnList = "userId,yearMonth")
+})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MonthlyOrder {
@@ -47,6 +49,10 @@ public class MonthlyOrder {
         this.updatedAt = LocalDateTime.now();
     }
     
+    /**
+     * 주문을 추가하고 금액을 누적합니다.
+     * @param amount 주문 금액
+     */
     public void addOrder(int amount) {
         this.totalAmount += amount;
         this.orderCount++;

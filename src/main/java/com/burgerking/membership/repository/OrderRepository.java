@@ -1,6 +1,7 @@
 package com.burgerking.membership.repository;
 
 import com.burgerking.membership.domain.Order;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
