@@ -1,4 +1,4 @@
-package com.burgerking.membership.integration;
+package com.burgerking.integration;
 
 import com.burgerking.membership.domain.Membership;
 import com.burgerking.membership.domain.MonthlyOrder;

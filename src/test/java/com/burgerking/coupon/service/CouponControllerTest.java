@@ -4,7 +4,6 @@ package com.burgerking.coupon.service;
 import com.burgerking.coupon.web.CouponController;
 import com.burgerking.coupon.web.dto.CouponIssueRequest;
 import com.burgerking.coupon.web.dto.CouponResponse;
-import com.burgerking.coupon.exception.CouponException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
