@@ -15,6 +15,8 @@ public interface MonthlyOrderRepository extends JpaRepository<MonthlyOrder, Long
     // userId와 특정 연월에 해당하는 월별 주문 정보 조회
     Optional<MonthlyOrder> findByUserIdAndYearMonth(Long userId, YearMonth yearMonth);
 
+    List<MonthlyOrder> findByYearMonthBetween(YearMonth startMonth, YearMonth endMonth);
+
     // userId와 시작/종료 연월 사이의 월별 주문 총액 리스트 조회 (3개월 누적 계산용)
     // 예를 들어, 현재 9월이면 6, 7, 8월 데이터를 가져옴
     List<MonthlyOrder> findByUserIdAndYearMonthBetweemOrderByYearMonthAsc (Long userId, YearMonth startMonth, YearMonth endMonth);
