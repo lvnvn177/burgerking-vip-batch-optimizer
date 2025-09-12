@@ -44,7 +44,7 @@ public class CouponStockRepositoryTest {
         couponStockRepository.save(stock);
 
         // When
-        Optional<CouponStock> foundStock = couponStockRepository.findByCouponId(coupon.getId());
+        Optional<CouponStock> foundStock = couponStockRepository.findByCoupon_CouponCode(coupon.getCouponCode());
 
         // Then
         assertThat(foundStock).isPresent();
@@ -66,7 +66,7 @@ public class CouponStockRepositoryTest {
         couponStockRepository.save(stock);
 
         // When
-        int updatedRows = couponStockRepository.decreaseStockAtomic(coupon.getId());
+        int updatedRows = couponStockRepository.decreaseStockAtomic(coupon.getCouponCode());
 
         // Then
         assertThat(updatedRows).isEqualTo(1);
@@ -90,7 +90,7 @@ public class CouponStockRepositoryTest {
         couponStockRepository.save(stock);
 
         // When
-        int updatedRows = couponStockRepository.decreaseStockAtomic(coupon.getId());
+        int updatedRows = couponStockRepository.decreaseStockAtomic(coupon.getCouponCode());
 
         // Then
         assertThat(updatedRows).isEqualTo(0); // 업데이트된 행이 없어야 함 
@@ -101,6 +101,7 @@ public class CouponStockRepositoryTest {
 
     private Coupon createTestCoupon() {
         return Coupon.builder()
+            .couponCode("TEST_COUPON")
             .name("테스트 쿠폰")
             .description("테스트용 쿠폰입니다")
             .couponType(CouponType.FIXED_AMOUNT)

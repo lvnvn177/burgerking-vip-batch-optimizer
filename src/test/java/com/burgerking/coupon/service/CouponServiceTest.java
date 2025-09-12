@@ -57,36 +57,31 @@ public class CouponServiceTest {
     private CouponServiceOptimized couponService;
 
     private Coupon testCoupon;
-    private CouponStock testCouponStock;
     private CouponRequest testCouponRequest;
-    private final Long TEST_COUPON_ID = 1L;
+    private final String TEST_COUPON_CODE = "TEST001";
     private final Long TEST_USER_ID = 100L;
 
     @BeforeEach
     void setUp() {
         // 테스트 쿠폰 객체 생성
         testCoupon = Coupon.builder()
-            .id(TEST_COUPON_ID)
-            .name("테스트 쿠폰")
-            .description("테스트용 쿠폰입니다")
-            .couponType(CouponType.FIXED_AMOUNT)
-            .discountAmount(BigDecimal.valueOf(5000))
-            .isPercentage(false)
-            .minimumOrderAmount(BigDecimal.valueOf(10000))
-            .startDate(LocalDateTime.now().minusDays(1))
-            .endDate(LocalDateTime.now().plusDays(30))
-            .build();
+                .id(1L)
+                .couponCode(TEST_COUPON_CODE)
+                .name("테스트 쿠폰")
+                .description("테스트용 쿠폰입니다")
+                .couponType(CouponType.FIXED_AMOUNT)
+                .discountAmount(BigDecimal.valueOf(5000))
+                .isPercentage(false)
+                .minimumOrderAmount(BigDecimal.valueOf(10000))
+                .startDate(LocalDateTime.now().minusDays(1))
+                .endDate(LocalDateTime.now().plusDays(30))
+                .build();
 
-    // 쿠폰 재고 객체 생성
-    testCouponStock = CouponStock.builder()
-        .coupon(testCoupon)
-        .totalQuantity(100)
-        .remainingQuantity(50)
-        .build();
     
       // 쿠폰 생성 요청 DTO 생성
         testCouponRequest = CouponRequest.builder()
                 .name("새 쿠폰")
+                .couponCode("NEW001")
                 .description("새로운 테스트 쿠폰")
                 .couponType(CouponType.FIXED_AMOUNT)
                 .discountAmount(BigDecimal.valueOf(3000))
@@ -121,10 +116,9 @@ public class CouponServiceTest {
     @DisplayName("쿠폰 발급 - 기본 성공 테스트")
     void issueCouponSuccessTest() {
         // Given
-        given(couponRepository.findById(TEST_COUPON_ID)).willReturn(Optional.of(testCoupon));
-        given(couponIssuanceRepository.existsByUserIdAndCouponId(TEST_USER_ID, TEST_COUPON_ID)).willReturn(false);
-        given(couponStockRepository.findByCouponId(TEST_COUPON_ID)).willReturn(Optional.of(testCouponStock));
-        given(couponStockRepository.decreaseStockAtomic(TEST_COUPON_ID)).willReturn(1);
+        given(couponRepository.findByCouponCode(TEST_COUPON_CODE)).willReturn(Optional.of(testCoupon));
+        given(couponIssuanceRepository.existsByUserIdAndCoupon_CouponCode(TEST_USER_ID, TEST_COUPON_CODE)).willReturn(false);
+        given(couponStockRepository.decreaseStockAtomic(TEST_COUPON_CODE)).willReturn(1);
 
         CouponIssuance issuance = CouponIssuance.builder()
             .id(1L)
@@ -139,7 +133,7 @@ public class CouponServiceTest {
         given(couponIssuanceRepository.save(any(CouponIssuance.class))).willReturn(issuance);
 
         // When
-        CouponResponse response = couponService.issueCoupon(TEST_COUPON_ID, TEST_USER_ID);
+        CouponResponse response = couponService.issueCoupon(TEST_COUPON_CODE, TEST_USER_ID);
 
         // Then
         assertThat(response).isNotNull();
@@ -151,26 +145,27 @@ public class CouponServiceTest {
     @DisplayName("쿠폰 발급 - 재고 없음 테스트")
     void issueCouponNoStockTest() {
         // Given
-        given(couponRepository.findById(TEST_COUPON_ID)).willReturn(Optional.of(testCoupon));
-        given(couponIssuanceRepository.existsByUserIdAndCouponId(TEST_USER_ID, TEST_COUPON_ID)).willReturn(false);
+        given(couponRepository.findByCouponCode(TEST_COUPON_CODE)).willReturn(Optional.of(testCoupon));
+        given(couponIssuanceRepository.existsByUserIdAndCoupon_CouponCode(TEST_USER_ID, TEST_COUPON_CODE)).willReturn(false);
+        given(couponStockRepository.decreaseStockAtomic(TEST_COUPON_CODE)).willReturn(0);
 
         // When & Then
-        assertThatThrownBy( () -> couponService.issueCoupon(TEST_COUPON_ID, TEST_USER_ID))
-            .isInstanceOf(IllegalStateException.class)
-            .hasMessageContaining("이미 발급받은 쿠폰입니다");
+        assertThatThrownBy(() -> couponService.issueCoupon(TEST_COUPON_CODE, TEST_USER_ID))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("쿠폰이 모두 소진되었습니다.");
     }
 
     @Test
     @DisplayName("쿠폰 발급 - 이미 발급받은 쿠폰 테스트")
     void issueCouponAlreadyIssuedTest() {
         // Given
-        given(couponRepository.findById(TEST_COUPON_ID)).willReturn(Optional.of(testCoupon));
-        given(couponIssuanceRepository.existsByUserIdAndCouponId(TEST_USER_ID, TEST_COUPON_ID)).willReturn(true);
-        
+        given(couponRepository.findByCouponCode(TEST_COUPON_CODE)).willReturn(Optional.of(testCoupon));
+        given(couponIssuanceRepository.existsByUserIdAndCoupon_CouponCode(TEST_USER_ID, TEST_COUPON_CODE)).willReturn(true);
+
         // When & Then
-        assertThatThrownBy( () -> couponService.issueCoupon(TEST_COUPON_ID, TEST_USER_ID))
-            .isInstanceOf(IllegalStateException.class)
-            .hasMessageContaining("이미 발급받은 쿠폰입니다");
+        assertThatThrownBy(() -> couponService.issueCoupon(TEST_COUPON_CODE, TEST_USER_ID))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("이미 발급받은 쿠폰입니다.");
     }
 
     @Test

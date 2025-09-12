@@ -18,6 +18,6 @@ public class CouponIssueRequest {
     @NotNull(message = "사용자 ID는 필수입니다")
     private Long userId;
 
-    @NotNull(message = "쿠폰 ID는 필수입니다")
-    private Long couponId;
+    @NotNull(message = "쿠폰 코드는 필수입니다")
+    private String couponCode;
 }

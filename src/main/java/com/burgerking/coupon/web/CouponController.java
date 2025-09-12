@@ -37,12 +37,12 @@ public class CouponController {
     /**
      * 쿠폰 정보 조회
      */
-    @GetMapping("/{couponID}")
-    public ResponseEntity<CouponResponse> getCoupon(@PathVariable Long couponId) {
-        log.info("쿠폰 조회 요청: id={}", couponId);
-        return couponService.getCouponById(couponId)
-            .map(ResponseEntity::ok) 
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "쿠폰을 찾을 수 없습니다: " + couponId));  
+    @GetMapping("/{couponCode}")
+    public ResponseEntity<CouponResponse> getCoupon(@PathVariable String couponCode) {
+        log.info("쿠폰 조회 요청: code={}", couponCode);
+        return couponService.getCouponByCode(couponCode)
+            .map(ResponseEntity::ok)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "쿠폰을 찾을 수 없습니다: " + couponCode));
     }
 
     /**
@@ -52,7 +52,7 @@ public class CouponController {
     public ResponseEntity<CouponResponse> issueCoupon(@Valid @RequestBody CouponIssueRequest request) {
         log.info("쿠폰 발급 요청: {}", request);
         try {
-            CouponResponse response = couponService.issueCoupon(request.getCouponId(), request.getUserId());
+            CouponResponse response = couponService.issueCoupon(request.getCouponCode(), request.getUserId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -70,7 +70,7 @@ public class CouponController {
         log.info("쿠폰 발급 요청 (비관적 락): {}", request);
         try {
             CouponResponse response = couponService.issueCouponWithPessimisticLock(
-                request.getCouponId(), request.getUserId());
+                request.getCouponCode(), request.getUserId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -87,7 +87,7 @@ public class CouponController {
         log.info("쿠폰 발급 요청 (낙관적 락): {}", request);
         try {
             CouponResponse response = couponService.issueCouponWithOptimisticLock(
-                request.getCouponId(), request.getUserId());
+                request.getCouponCode(), request.getUserId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -104,7 +104,7 @@ public class CouponController {
         log.info("쿠폰 발급 요청 (원자적 연산): {}", request);
         try {
             CouponResponse response = couponService.issueCouponWithAtomicOperation(
-                request.getCouponId(), request.getUserId());
+                request.getCouponCode(), request.getUserId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -121,7 +121,7 @@ public class CouponController {
         log.info("쿠폰 발급 요청 (Reids 락): {}", request);
         try {
             CouponResponse response = couponService.issueCouponWithRedisLock(
-                request.getCouponId(), request.getUserId());
+                request.getCouponCode(), request.getUserId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -171,11 +171,11 @@ public class CouponController {
     /**
      * 쿠폰 재고 확인
      */
-    @GetMapping("/{couponId}/stock")
-    public ResponseEntity<Integer> getCouponStock(@PathVariable Long couponId) {
-        log.info("쿠폰 재고 확인: couponId={}", couponId);
+    @GetMapping("/{couponCode}/stock")
+    public ResponseEntity<Integer> getCouponStock(@PathVariable String couponCode) {
+        log.info("쿠폰 재고 확인: couponCode={}", couponCode);
         try {
-            int remainingQuantity = couponService.getRemainingQuantity(couponId);
+            int remainingQuantity = couponService.getRemainingQuantity(couponCode);
             return ResponseEntity.ok(remainingQuantity);
         } catch (IllegalStateException | IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

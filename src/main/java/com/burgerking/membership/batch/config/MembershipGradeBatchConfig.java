@@ -1,4 +1,4 @@
-package com.burgerking.membership.config;
+package com.burgerking.membership.batch.config;
 
 import com.burgerking.membership.batch.processor.MembershipGradeProcessor;
 import com.burgerking.membership.batch.writer.MembershipGradeWriter;

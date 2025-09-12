@@ -31,6 +31,9 @@ public class Coupon {
     @Column(nullable = false, length = 100)
     private String name;  // 쿠폰 이름 ex) 골든 패티 쿠폰 
 
+    @Column(nullable = false, unique = true, length = 50)
+    private String couponCode; // 쿠폰 코드
+
     @Column(length = 500)
     private String description; // 쿠폰 설명
 

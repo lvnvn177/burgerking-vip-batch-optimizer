@@ -1,4 +1,4 @@
-package com.burgerking.coupon.lock;
+package com.burgerking.common.lock;
 
 import java.time.Duration;
 

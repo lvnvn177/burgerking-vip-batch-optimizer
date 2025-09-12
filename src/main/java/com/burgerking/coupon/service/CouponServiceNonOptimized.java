@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CouponServiceNonOptimized implements CouponService{
+public class CouponServiceNonOptimized implements CouponService {
     
     private final CouponRepository couponRepository;
     private final CouponStockRepository couponStockRepository;
@@ -35,19 +35,19 @@ public class CouponServiceNonOptimized implements CouponService{
      */
     @Override
     @Transactional
-    public CouponResponse issueCoupon(Long couponId, Long userId) {
+    public CouponResponse issueCoupon(String couponCode, Long userId) {
         // 1. 쿠폰 존재 확인
-        Coupon coupon = couponRepository.findById(couponId)
-            .orElseThrow( () -> new IllegalArgumentException("존재하지 않는 쿠폰입니다: " + couponId));
+        Coupon coupon = couponRepository.findByCouponCode(couponCode)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰입니다: " + couponCode));
 
         // 2. 사용자가 이미 해당 쿠폰을 발급받았는지 확인
-        if (couponIssuanceRepository.existsByUserIdAndCouponId(userId, couponId)) {
+        if (couponIssuanceRepository.existsByUserIdAndCoupon_CouponCode(userId, couponCode)) {
             throw new IllegalArgumentException("이미 발급받은 쿠폰입니다.");
         }
 
         // 3. 쿠폰 재고 확인
-        CouponStock couponStock = couponStockRepository.findByCouponId(couponId)
-            .orElseThrow( () -> new IllegalArgumentException("쿠폰 재고 정보가 없습니다."));
+        CouponStock couponStock = couponStockRepository.findByCoupon_CouponCode(couponCode)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰 재고 정보가 없습니다."));
         
         
         // 4. 재고 확인 및 감소 (여기서 동시성 문제 발생)
@@ -102,18 +102,19 @@ public class CouponServiceNonOptimized implements CouponService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CouponResponse> getCouponById(Long couponId) {
-        return couponRepository.findById(couponId)
-            .map(coupon -> CouponResponse.builder()
-                .id(null) // 발급 Id는 없음 (쿠폰 정보만 조회)
-                .couponId(coupon.getId())
-                .couponName(coupon.getName())
-                .description(coupon.getDescription())
-                .discountAmount(coupon.getDiscountAmount())
-                .isPercentage(coupon.isPercentage())
-                .startDate(coupon.getStartDate())
-                .endDate(coupon.getEndDate())
-                .build());
+    public Optional<CouponResponse> getCouponByCode(String couponCode) {
+        return couponRepository.findByCouponCode(couponCode)
+                .map(coupon -> CouponResponse.builder()
+                        .id(null) // 발급 Id는 없음 (쿠폰 정보만 조회)
+                        .couponId(coupon.getId())
+                        .couponCode(coupon.getCouponCode())
+                        .couponName(coupon.getName())
+                        .description(coupon.getDescription())
+                        .discountAmount(coupon.getDiscountAmount())
+                        .isPercentage(coupon.isPercentage())
+                        .startDate(coupon.getStartDate())
+                        .endDate(coupon.getEndDate())
+                        .build());
     }
 
     @Override
@@ -139,12 +140,13 @@ public class CouponServiceNonOptimized implements CouponService{
     public CouponResponse createCoupon(CouponRequest couponRequest) {
         // 1. 쿠폰 엔티티 생성
         Coupon coupon = Coupon.builder()
+            .couponCode(couponRequest.getCouponCode())
             .name(couponRequest.getName())
             .description(couponRequest.getDescription())
             .couponType(couponRequest.getCouponType())
             .discountAmount(couponRequest.getDiscountAmount())
             .isPercentage(couponRequest.isPercentage())
-            .minimumOrderAmount(couponRequest.getMinmimumOrderAmount())
+            .minimumOrderAmount(couponRequest.getMinimumOrderAmount())
             .startDate(couponRequest.getStartDate())
             .endDate(couponRequest.getEndDate())
             .build();
@@ -171,11 +173,11 @@ public class CouponServiceNonOptimized implements CouponService{
     
     @Override
     @Transactional(readOnly = true)
-    public int getRemainingQuantity(Long couponId) {
-        CouponStock couponStock = couponStockRepository.findByCouponId(couponId)
-            .orElseThrow( () -> new IllegalArgumentException("쿠폰 재고 정보가 없습니다."));
+    public int getRemainingQuantity(String couponCode) {
+        CouponStock couponStock = couponStockRepository.findByCoupon_CouponCode(couponCode)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰 재고 정보가 없습니다."));
 
-            return couponStock.getRemainingQuantity();
+        return couponStock.getRemainingQuantity();
     }
 
     // 고유한 쿠폰 코드 생성 (UUID 기반)
@@ -186,29 +188,34 @@ public class CouponServiceNonOptimized implements CouponService{
 
     @Override
     @Transactional
-    public CouponResponse issueCouponWithPessimisticLock(Long couponId, Long userId) {
+    public CouponResponse issueCouponWithPessimisticLock(String couponCode, Long userId) {
         // 비최적화 서비스에서는 기본 발급 메소드를 호출
-        return issueCoupon(couponId, userId);
+        return issueCoupon(couponCode, userId);
     }
 
     @Override
     @Transactional
-    public CouponResponse issueCouponWithOptimisticLock(Long couponId, Long userId) {
+    public CouponResponse issueCouponWithOptimisticLock(String couponCode, Long userId) {
         // 비최적화 서비스에서는 기본 발급 메소드를 호출
-        return issueCoupon(couponId, userId);
+        return issueCoupon(couponCode, userId);
     }
 
     @Override
     @Transactional
-    public CouponResponse issueCouponWithAtomicOperation(Long couponId, Long userId) {
+    public CouponResponse issueCouponWithAtomicOperation(String couponCode, Long userId) {
         // 비최적화 서비스에서는 기본 발급 메소드를 호출
-        return issueCoupon(couponId, userId);
+        return issueCoupon(couponCode, userId);
     }
 
     @Override
     @Transactional
-    public CouponResponse issueCouponWithRedisLock(Long couponId, Long userId) {
+    public CouponResponse issueCouponWithRedisLock(String couponCode, Long userId) {
         // 비최적화 서비스에서는 기본 발급 메소드를 호출
-        return issueCoupon(couponId, userId);
+        return issueCoupon(couponCode, userId);
+    }
+
+    @Override
+    public Optional<CouponResponse> getCouponById(Long couponId) {
+        return Optional.empty();
     }
 }

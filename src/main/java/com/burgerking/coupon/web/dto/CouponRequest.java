@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CouponRequest {
     
+    @NotBlank(message = "쿠폰 코드는 필수입니다.")
+    private String couponCode;
+
     @NotBlank(message = "쿠폰 이름은 필수입니다")
     private String name;
 

@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import com.burgerking.common.exception.LockAcquisitionException;
+
 import java.lang.reflect.Method;
 import java.time.Duration;
 
