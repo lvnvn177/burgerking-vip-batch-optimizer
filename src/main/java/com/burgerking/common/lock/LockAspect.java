@@ -14,18 +14,25 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 /**
- * @DistributedLock 어노테이션이 적용된 메서드에 분산 락을 적용하는 AOP
+ * {@code @DistributedLockOperation} 어노테이션이 적용된 메서드에 분산 락을 적용하는 AOP Aspect 입니다.
  */
 @Aspect
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class LockAspect {
-    
+
     private final DistributedLock distributedLock;
 
-   @Around("@annotation(com.burgerking.common.lock.DistributedLockOperation)")
-   public Object applyLock(ProceedingJoinPoint joinPoint) throws Throwable {
+    /**
+     * @DistributedLockOperation 어노테이션이 붙은 메서드를 감싸 락을 적용하고 해제합니다.
+     *
+     * @param joinPoint 프록시된 메서드에 대한 정보
+     * @return 원본 메서드의 반환 값
+     * @throws Throwable 원본 메서드에서 발생한 예외 또는 락 획득 실패 시 LockAcquisitionException
+     */
+    @Around("@annotation(com.burgerking.common.lock.DistributedLockOperation)")
+    public Object applyLock(ProceedingJoinPoint joinPoint) throws Throwable {
     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     Method method = signature.getMethod();
 

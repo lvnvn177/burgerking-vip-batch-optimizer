@@ -29,12 +29,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * 멤버십 관련 API의 통합 테스트 클래스입니다.
+ * 실제 데이터베이스 연동을 통해 API의 전체 흐름을 테스트합니다.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
 public class MembershipIntegrationTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -55,24 +59,27 @@ public class MembershipIntegrationTest {
     @BeforeEach
     void setUp() {
         testUserId = 1L;
-
-        // 테스트 전 데이터 정리
         cleanupTestData();
     }
 
     @AfterEach
     void tearDown() {
-        // 테스트 후 데이터 정리
         cleanupTestData();
     }
 
+    /**
+     * 각 테스트 실행 전에 데이터베이스를 초기화합니다.
+     */
     private void cleanupTestData() {
-        orderRepository.deleteAll();
-        monthlyOrderRepository.deleteAll();
-        membershipRepository.deleteAll();
+        orderRepository.deleteAllInBatch();
+        monthlyOrderRepository.deleteAllInBatch();
+        membershipRepository.deleteAllInBatch();
     }
 
-       @Test
+    /**
+     * 신규 사용자에 대한 멤버십이 정상적으로 생성되는지 테스트합니다.
+     */
+    @Test
     @DisplayName("신규 사용자 멤버십 생성 통합 테스트")
     void createNewMembership() throws Exception {
         // when
@@ -89,6 +96,9 @@ public class MembershipIntegrationTest {
         assertEquals(MembershipGrade.BRONZE, savedMembership.get().getGrade());
     }
 
+    /**
+     * 신규 주문이 발생했을 때, 월별 주문 정보가 정상적으로 집계되는지 테스트합니다.
+     */
     @Test
     @DisplayName("주문 처리 통합 테스트")
     void processOrder() throws Exception {
@@ -121,6 +131,10 @@ public class MembershipIntegrationTest {
         assertEquals(1, monthlyOrder.get().getOrderCount());
     }
 
+    /**
+     * 3개월간의 주문 내역을 기반으로 멤버십 등급 평가가 정상적으로 이루어지는지 테스트합니다.
+     * (BRONZE -> GOLD)
+     */
     @Test
     @DisplayName("멤버십 등급 평가 통합 테스트")
     void evaluateAndRenewMembershipGrades() throws Exception {

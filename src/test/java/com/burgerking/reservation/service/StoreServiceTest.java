@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * StoreService의 단위 테스트 클래스입니다.
+ */
 @ExtendWith(MockitoExtension.class)
 public class StoreServiceTest {
 
@@ -39,11 +42,14 @@ public class StoreServiceTest {
                 .build();
 
         testStoreDto = StoreDto.builder()
-                .id(1L)
-                .isOpen(true)
+                .id(testStore.getId())
+                .isOpen(testStore.isOpen())
                 .build();
     }
 
+    /**
+     * 매장 ID로 매장 정보를 정확하게 조회하는지 테스트합니다.
+     */
     @Test
     void getStoreById_ShouldReturnStore() {
         when(storeRepository.findById(1L)).thenReturn(Optional.of(testStore));
@@ -56,6 +62,9 @@ public class StoreServiceTest {
         verify(storeRepository, times(1)).findById(1L);
     }
 
+    /**
+     * 모든 매장 목록을 정확하게 조회하는지 테스트합니다.
+     */
     @Test
     void getAllStores_ShouldReturnAllStores() {
         when(storeRepository.findAll()).thenReturn(Arrays.asList(testStore));
@@ -68,6 +77,9 @@ public class StoreServiceTest {
         verify(storeRepository, times(1)).findAll();
     }
 
+    /**
+     * 현재 영업 중인 매장 목록만 정확하게 조회하는지 테스트합니다.
+     */
     @Test
     void getOpenStores_ShouldReturnOpenStores() {
         when(storeRepository.findByIsOpenTrue()).thenReturn(Arrays.asList(testStore));
@@ -81,6 +93,9 @@ public class StoreServiceTest {
         verify(storeRepository, times(1)).findByIsOpenTrue();
     }
 
+    /**
+     * 새로운 매장 정보를 받아 정상적으로 생성하는지 테스트합니다.
+     */
     @Test
     void createStore_ShouldReturnCreatedStore() {
         when(storeRepository.save(any(Store.class))).thenReturn(testStore);

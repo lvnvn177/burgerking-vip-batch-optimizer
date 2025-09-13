@@ -26,6 +26,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * 주문 생성 기능의 동시성 문제를 테스트하는 클래스입니다.
+ * 분산 락을 사용하여 여러 스레드가 동시에 주문을 생성할 때의 동작을 검증합니다.
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 public class OrderConcurrencyTest {
@@ -38,36 +42,37 @@ public class OrderConcurrencyTest {
 
     @Autowired
     private MenuRepository menuRepository;
-    
+
     @Autowired
     private OrderRepository orderRepository;
 
     private Store testStore;
     private Menu testMenu;
-    
+
     @BeforeEach
     void setUp() {
-        // 테스트 데이터 초기화
-        orderRepository.deleteAll();
-        menuRepository.deleteAll();
-        storeRepository.deleteAll();
-        
-        // 테스트용 매장 생성
-        testStore = Store.builder()
-                .isOpen(true)
-                .build();
-        testStore = storeRepository.save(testStore);
+        orderRepository.deleteAllInBatch();
+        menuRepository.deleteAllInBatch();
+        storeRepository.deleteAllInBatch();
 
-        // 테스트용 메뉴 생성 (재고 10개로 제한)
+        testStore = Store.builder().isOpen(true).build();
+        storeRepository.save(testStore);
+
         testMenu = Menu.builder()
                 .name("리미티드 버거")
                 .price(new BigDecimal("10000"))
                 .store(testStore)
                 .available(true)
                 .build();
-        testMenu = menuRepository.save(testMenu);
+        menuRepository.save(testMenu);
     }
 
+    /**
+     * 여러 스레드에서 동시에 주문 생성을 요청했을 때,
+     * 모든 요청이 성공적으로 처리되는지 (재고가 무한한 경우) 검증합니다.
+     *
+     * @throws InterruptedException 스레드 대기 중 발생할 수 있는 예외
+     */
     @Test
     void concurrentOrderCreation_ShouldHandleConcurrency() throws InterruptedException {
         int numberOfThreads = 20; // 동시에 20개의 주문 시도

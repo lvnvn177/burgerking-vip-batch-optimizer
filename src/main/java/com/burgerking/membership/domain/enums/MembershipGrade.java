@@ -4,14 +4,14 @@ import lombok.Getter;
 
 @Getter
 public enum MembershipGrade {
-    BRONZE("브론즈", 0),
-    SILVER("실버", 100000),
-    GOLD("골드", 300000),
-    PLATINUM("플래티넘", 600000),
-    VIP("VIP", 1000000);
+    BRONZE("브론즈", 0),          // 브론즈 등급
+    SILVER("실버", 100000),      // 실버 등급
+    GOLD("골드", 300000),        // 골드 등급
+    PLATINUM("플래티넘", 600000),  // 플래티넘 등급
+    VIP("VIP", 1000000);        // VIP 등급
 
-    private final String displayName;
-    private final int requiredAmount; // 3개월 누적 금액 기준
+    private final String displayName;       // 등급 표시 이름
+    private final int requiredAmount;       // 등급 달성에 필요한 3개월 누적 주문 금액
 
     MembershipGrade(String displayName, int requiredAmount) {
         this.displayName = displayName;

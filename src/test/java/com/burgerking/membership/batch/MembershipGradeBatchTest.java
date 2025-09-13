@@ -26,12 +26,14 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * 멤버십 등급 평가 배치 Job의 기능 및 정확성을 검증하는 테스트 클래스입니다.
+ */
 @SpringBootTest
 @SpringBatchTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes =  {MembershipGradeBatchConfig.class})
+@ContextConfiguration(classes = {MembershipGradeBatchConfig.class})
 public class MembershipGradeBatchTest {
-    
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
@@ -47,15 +49,17 @@ public class MembershipGradeBatchTest {
 
     @BeforeEach
     void setUp() {
-        // 이전 테스트 데이터 정리
         jobRepositoryTestUtils.removeJobExecutions();
-        membershipRepository.deleteAll();;
-        monthlyOrderRepository.deleteAll();;
-
-        // 테스트 데이터 생성
+        membershipRepository.deleteAllInBatch();
+        monthlyOrderRepository.deleteAllInBatch();
         setupTestData();
     }
 
+    /**
+     * 배치 테스트를 위한 초기 데이터를 설정합니다.
+     * - 3명의 멤버십 (모두 BRONZE)
+     * - 각 멤버십에 대한 3개월치 주문 내역
+     */
     private void setupTestData() {
         // 멤버십 데이터 생성
         Membership member1 = Membership.builder()
@@ -144,6 +148,12 @@ public class MembershipGradeBatchTest {
         ));
     }
 
+    /**
+     * 배치 Job 실행 후 각 멤버십의 등급이 예상대로 갱신되었는지 검증합니다.
+     * - 사용자 1: BRONZE 유지
+     * - 사용자 2: SILVER로 승급
+     * - 사용자 3: GOLD로 승급
+     */
     @Test
     @DisplayName("멤버십 등급 갱신 배치 테스트")
     void testMembershipGradeBatch() throws Exception {
@@ -163,6 +173,10 @@ public class MembershipGradeBatchTest {
         assertEquals(MembershipGrade.GOLD, member3.getGrade());   // 40만원 -> GOLD 승급
     }
 
+    /**
+     * 등급 평가가 정확히 직전 3개월의 데이터만을 사용하는지 검증합니다.
+     * 4개월 전의 주문 내역은 등급 평가에 영향을 주지 않아야 합니다.
+     */
     @Test
     @DisplayName("멤버십 등급 평가 기간 테스트")
     void testMembershipGradeEvaluationPeriod() throws Exception {

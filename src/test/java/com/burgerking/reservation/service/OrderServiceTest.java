@@ -30,6 +30,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * OrderService의 단위 테스트 클래스입니다.
+ * Mockito를 사용하여 Repository 의존성을 격리하고 서비스 로직의 정확성을 검증합니다.
+ */
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
 
@@ -56,6 +60,7 @@ public class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
+        // 각 테스트 전에 테스트에 필요한 Mock 객체들을 설정합니다.
         testStore = Store.builder()
                 .id(1L)
                 .isOpen(true)
@@ -101,6 +106,9 @@ public class OrderServiceTest {
                 .build();
     }
 
+    /**
+     * 정상적인 주문 요청이 들어왔을 때, 주문이 성공적으로 생성되는지 테스트합니다.
+     */
     @Test
     void createOrder_ShouldReturnCreatedOrder() {
         when(storeRepository.findById(1L)).thenReturn(Optional.of(testStore));
@@ -135,6 +143,9 @@ public class OrderServiceTest {
         verify(orderItemRepository, times(1)).findByOrder(testOrder);
     }
 
+    /**
+     * 영업 종료된 매장에 주문을 시도할 경우, 예외가 발생하는지 테스트합니다.
+     */
     @Test
     void createOrder_WithClosedStore_ShouldThrowException() {
         // 매장이 영업 중이 아닌 경우
@@ -147,6 +158,9 @@ public class OrderServiceTest {
         verify(orderRepository, never()).save(any(Order.class));
     }
 
+    /**
+     * 판매 중지된 메뉴를 주문할 경우, 예외가 발생하는지 테스트합니다.
+     */
     @Test
     void createOrder_WithUnavailableMenu_ShouldThrowException() {
         // 메뉴가 판매 불가능한 경우
@@ -160,6 +174,9 @@ public class OrderServiceTest {
         verify(orderRepository, times(1)).save(any(Order.class)); // 주문은 생성되지만 항목 추가 중 예외 발생
     }
 
+    /**
+     * 주문 ID로 주문 정보를 정확하게 조회하는지 테스트합니다.
+     */
     @Test
     void getOrderById_ShouldReturnOrder() {
         when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
@@ -174,6 +191,9 @@ public class OrderServiceTest {
         verify(orderItemRepository, times(1)).findByOrder(testOrder);
     }
 
+    /**
+     * 주문 번호로 주문 정보를 정확하게 조회하는지 테스트합니다.
+     */
     @Test
     void getOrderByOrderNumber_ShouldReturnOrder() {
         when(orderRepository.findByOrderNumber("BK-12345678")).thenReturn(Optional.of(testOrder));

@@ -19,25 +19,25 @@ public class MonthlyOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private Long id;                // 월별 주문 집계 ID
+
     @Column(nullable = false)
-    private Long userId;
-    
+    private Long userId;            // 사용자 ID
+
     @Column(nullable = false)
-    private YearMonth yearMonth;
-    
+    private YearMonth yearMonth;    // 집계 년월
+
     @Column(nullable = false)
-    private Integer totalAmount;
-    
+    private Integer totalAmount;    // 월간 총 주문 금액
+
     @Column(nullable = false)
-    private Integer orderCount;
-    
+    private Integer orderCount;     // 월간 총 주문 횟수
+
     @Column(nullable = false)
-    private LocalDateTime createdAt;
-    
+    private LocalDateTime createdAt; // 생성일
+
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt; // 수정일
 
     @Builder
     public MonthlyOrder(Long userId, YearMonth yearMonth) {

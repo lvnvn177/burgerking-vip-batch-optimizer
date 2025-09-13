@@ -25,9 +25,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * MembershipService의 단위 테스트 클래스입니다.
+ * Mockito를 사용하여 의존성을 격리하고 서비스 로직을 검증합니다.
+ */
 @ExtendWith(MockitoExtension.class)
 public class MembershipServiceTest {
-    
+
     @Mock
     private MembershipRepository membershipRepository;
 
@@ -48,36 +52,30 @@ public class MembershipServiceTest {
     void setup() {
         testUserId = 1L;
 
-        // 테스트용 멤버쉽 객체 생성
+        // 테스트용 멤버십 객체 생성
         testMembership = Membership.builder()
-            .userId(testUserId)
-            .grade(MembershipGrade.BRONZE)
-            .build();
-        
-        // 테스트용 월별 주문 객체 생성
-        MonthlyOrder month1 = MonthlyOrder.builder()
-            .userId(testUserId)
-            .yearMonth(YearMonth.now().minusMonths(3))
-            .build();
-        month1.addOrder(50000); // 5만원 주문 
+                .userId(testUserId)
+                .grade(MembershipGrade.BRONZE)
+                .build();
 
-        MonthlyOrder month2 = MonthlyOrder.builder()
-            .userId(testUserId)
-            .yearMonth(YearMonth.now().minusMonths(2))
-            .build();
-        month2.addOrder(60000); // 6만원 주문 
+        // 테스트용 월별 주문 객체 리스트 생성 (3개월치)
+        MonthlyOrder month1 = MonthlyOrder.builder().userId(testUserId).yearMonth(YearMonth.now().minusMonths(3)).build();
+        month1.addOrder(50000); // 5만원
 
-        MonthlyOrder month3 = MonthlyOrder.builder()
-            .userId(testUserId)
-            .yearMonth(YearMonth.now().minusMonths(1))
-            .build();
-        month3.addOrder(70000); // 7만원 주문 
+        MonthlyOrder month2 = MonthlyOrder.builder().userId(testUserId).yearMonth(YearMonth.now().minusMonths(2)).build();
+        month2.addOrder(60000); // 6만원
+
+        MonthlyOrder month3 = MonthlyOrder.builder().userId(testUserId).yearMonth(YearMonth.now().minusMonths(1)).build();
+        month3.addOrder(70000); // 7만원
 
         testMonthlyOrders = Arrays.asList(month1, month2, month3);
     }
 
+    /**
+     * 기존 멤버십이 존재할 경우, 새로운 멤버십을 생성하지 않고 기존 멤버십을 반환하는지 테스트합니다.
+     */
     @Test
-    @DisplayName("멤버십 생성 또는 조회 테스트")
+    @DisplayName("멤버십 생성 또는 조회 - 기존 멤버십 반환")
     void createOrGetMembership_ShouldReturnExistingMembership_WhenMembershipExists() {
         // given
         when(membershipRepository.findByUserId(testUserId)).thenReturn(Optional.of(testMembership));
@@ -93,8 +91,11 @@ public class MembershipServiceTest {
         verify(membershipRepository, never()).save(any(Membership.class));
     }
 
+    /**
+     * 해당 월에 첫 주문이 발생했을 때, 새로운 MonthlyOrder가 생성되는지 테스트합니다.
+     */
     @Test
-    @DisplayName("새로운 주문 처리 테스트")
+    @DisplayName("새로운 주문 처리 - 신규 월별 주문 생성")
     void processNewOrder_ShouldCreateNewMonthlyOrder_WhenNoExistingMonthlyOrderForCurrentMonth() {
         // given
         String orderNumber = "ORD123456";
@@ -113,8 +114,11 @@ public class MembershipServiceTest {
         verify(monthlyOrderRepository).save(any(MonthlyOrder.class));
     }
 
+    /**
+     * 3개월 주문 합산 금액에 따라 등급이 SILVER로 정상 승급되는지 테스트합니다.
+     */
     @Test
-    @DisplayName("멤버십 등급 평가 테스트 - 실버 등급 승급")
+    @DisplayName("멤버십 등급 평가 - SILVER 등급 승급")
     void evaluateAndRenewAllMembershipGrades_ShouldUpgradeToSilver_WhenTotalAmountMeetsCriteria() {
         // given
         // 3개월 합계: 18만원 -> 실버 등급 조건 충족 
@@ -122,7 +126,7 @@ public class MembershipServiceTest {
 
         YearMonth endMonth = YearMonth.now().minusMonths(1);
         YearMonth startMonth = endMonth.minusMonths(2);
-        when(monthlyOrderRepository.findByUserIdAndYearMonthBetweemOrderByYearMonthAsc(
+        when(monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
             testUserId, startMonth, endMonth))
             .thenReturn(testMonthlyOrders);
 
@@ -133,8 +137,11 @@ public class MembershipServiceTest {
         verify(membershipRepository).save(any(Membership.class));
     }
 
+    /**
+     * 존재하지 않는 사용자의 멤버십 조회를 시도할 때, 예외가 발생하는지 테스트합니다.
+     */
     @Test
-    @DisplayName("존재하지 않는 사용자 멤버십 조회 시 예외 발생 테스트")
+    @DisplayName("멤버십 조회 - 존재하지 않는 사용자")
     void getMembershipByUserId_ShouldThrowException_WhenMembershipNotFound() {
         // given
         Long nonExistentUserId = 999L;

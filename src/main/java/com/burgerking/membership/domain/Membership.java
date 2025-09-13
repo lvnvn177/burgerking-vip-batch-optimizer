@@ -17,28 +17,26 @@ public class Membership {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;            // 멤버십 ID
 
     @Column(nullable = false)
-    private Long userId;
+    private Long userId;        // 사용자 ID
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MembershipGrade grade;
-    
-    // 마지막 등급 평가일
-    @Column(nullable = false)
-    private LocalDateTime lastEvaluationDate;
-    
-    // 다음 등급 평가 예정일 (매월 1일 09:00 AM)
-    @Column(nullable = false)
-    private LocalDateTime nextEvaluationDate;
+    private MembershipGrade grade; // 멤버십 등급
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime lastEvaluationDate; // 마지막 등급 평가일
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDateTime nextEvaluationDate; // 다음 등급 평가 예정일 (매월 1일 09:00 AM)
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt; // 생성일
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt; // 수정일
 
     @Builder
     public Membership(Long userId, MembershipGrade grade) {

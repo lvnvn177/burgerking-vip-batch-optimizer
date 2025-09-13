@@ -44,25 +44,35 @@ public class MembershipGradeBatchConfig {
 
     private static final int CHUNK_SIZE = 100;
 
+    /**
+     * 멤버십 등급 평가 Job을 정의합니다.
+     *
+     * @param membershipGradeStep 멤버십 등급 평가 Step
+     * @return Job
+     */
     @Bean
     public Job membershipGradeJob(Step membershipGradeStep) {
-      
         return new JobBuilder("membershipGradeJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(membershipGradeStep)
                 .build();
     }
 
+    /**
+     * 멤버십 등급을 평가하는 Step을 정의합니다.
+     * - Reader: 모든 멤버십 정보를 페이징하여 읽어옵니다.
+     * - Processor: 각 멤버십에 대해 최근 3개월 주문 금액을 계산하고 등급을 평가합니다.
+     * - Writer: 변경된 멤버십 정보를 DB에 저장합니다.
+     *
+     * @return Step
+     */
     @Bean
     public Step membershipGradeStep() {
-        // 등급 평가 기간 설정 (직전 3개월)
         YearMonth endMonth = YearMonth.now().minusMonths(1);
         YearMonth startMonth = endMonth.minusMonths(2);
-        
-        // 해당 기간의 모든 월별 주문 데이터 조회
+
         List<MonthlyOrder> allMonthlyOrders = monthlyOrderRepository.findByYearMonthBetween(startMonth, endMonth);
-        
-     
+
         return new StepBuilder("membershipGradeStep", jobRepository)
                 .<Membership, Membership>chunk(CHUNK_SIZE, transactionManager)
                 .reader(membershipItemReader())
@@ -71,13 +81,18 @@ public class MembershipGradeBatchConfig {
                 .build();
     }
 
+    /**
+     * 모든 멤버십 정보를 페이징하여 읽어오는 ItemReader를 정의합니다.
+     *
+     * @return JpaPagingItemReader<Membership>
+     */
     @Bean
     public JpaPagingItemReader<Membership> membershipItemReader() {
         return new JpaPagingItemReaderBuilder<Membership>()
                 .name("membershipItemReader")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(CHUNK_SIZE)
-                .queryString("SELECT m FROM Membership m")
+                .queryString("SELECT m FROM Membership m ORDER BY m.id ASC")
                 .build();
     }
 }

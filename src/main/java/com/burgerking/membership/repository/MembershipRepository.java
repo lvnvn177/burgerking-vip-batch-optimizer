@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MembershipRepository extends JpaRepository<Membership, Long> {
-    // userId로 멤버쉽 정보를 조회하는 메서드
+    /**
+     * userId로 멤버십 정보를 조회합니다.
+     *
+     * @param userId 사용자 ID
+     * @return Optional<Membership>
+     */
     Optional<Membership> findByUserId(Long userId);
 }

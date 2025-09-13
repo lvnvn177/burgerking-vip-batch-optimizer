@@ -92,7 +92,7 @@ public class MembershipService {
             YearMonth endMonth = YearMonth.now().minusMonths(1); // 직전 달
             YearMonth startMonth = endMonth.minusMonths(2); // 직전 달로부터 3개월 전
 
-            List<MonthlyOrder> last3MonthsOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweemOrderByYearMonthAsc(
+            List<MonthlyOrder> last3MonthsOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
                 membership.getUserId(), startMonth, endMonth);
             
             int total3MonthAmount = last3MonthsOrders.stream()

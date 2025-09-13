@@ -27,6 +27,10 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * OrderController의 API 엔드포인트를 테스트하는 클래스입니다.
+ * MockMvc를 사용하여 실제 HTTP 요청과 유사한 테스트를 수행합니다.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -50,22 +54,25 @@ public class OrderControllerTest {
 
     @BeforeEach
     void setUp() {
-        // 테스트용 매장 생성
-        testStore = Store.builder()
-                .isOpen(true)
-                .build();
-        testStore = storeRepository.save(testStore);
+        // 테스트에 필요한 매장과 메뉴 데이터를 미리 생성합니다.
+        testStore = Store.builder().isOpen(true).build();
+        storeRepository.save(testStore);
 
-        // 테스트용 메뉴 생성
         testMenu = Menu.builder()
                 .name("치즈버거")
                 .price(new BigDecimal("6000"))
                 .store(testStore)
                 .available(true)
                 .build();
-        testMenu = menuRepository.save(testMenu);
+        menuRepository.save(testMenu);
     }
 
+    /**
+     * 주문 생성 API(/api/orders)가 정상적으로 동작하고,
+     * 생성된 주문을 다시 조회할 수 있는지 테스트합니다.
+     *
+     * @throws Exception MockMvc.perform()에서 발생할 수 있는 예외
+     */
     @Test
     void createOrder_ShouldReturnCreatedOrder() throws Exception {
         // 주문 요청 생성

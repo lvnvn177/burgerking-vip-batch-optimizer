@@ -25,6 +25,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * 주문 관련 API의 통합 테스트 클래스입니다.
+ * TestRestTemplate을 사용하여 실제 HTTP 요청을 보내고 전체 흐름을 테스트합니다.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class OrderIntegrationTest {
@@ -37,7 +41,7 @@ public class OrderIntegrationTest {
 
     @Autowired
     private MenuRepository menuRepository;
-    
+
     @Autowired
     private OrderRepository orderRepository;
 
@@ -46,29 +50,30 @@ public class OrderIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // 테스트용 매장 생성
-        testStore = Store.builder()
-                .isOpen(true)
-                .build();
-        testStore = storeRepository.save(testStore);
+        // 테스트에 필요한 매장과 메뉴 데이터를 미리 생성합니다.
+        testStore = Store.builder().isOpen(true).build();
+        storeRepository.save(testStore);
 
-        // 테스트용 메뉴 생성
         testMenu = Menu.builder()
                 .name("와퍼")
                 .price(new BigDecimal("7000"))
                 .store(testStore)
                 .available(true)
                 .build();
-        testMenu = menuRepository.save(testMenu);
+        menuRepository.save(testMenu);
     }
 
     @AfterEach
     void tearDown() {
+        // 각 테스트 실행 후 데이터베이스를 초기화합니다.
         orderRepository.deleteAll();
         menuRepository.deleteAll();
         storeRepository.deleteAll();
     }
 
+    /**
+     * 주문 생성 후 해당 주문을 정상적으로 조회할 수 있는지 테스트합니다.
+     */
     @Test
     void createAndGetOrder_ShouldSucceed() {
         // 주문 요청 생성

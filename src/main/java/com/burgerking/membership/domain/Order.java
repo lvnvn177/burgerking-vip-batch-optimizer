@@ -16,22 +16,22 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private Long id;                    // 주문 ID
+
     @Column(nullable = false)
-    private Long userId;
-    
+    private Long userId;                // 사용자 ID
+
     @Column(nullable = false)
-    private String orderNumber;
-    
+    private String orderNumber;         // 주문 번호
+
     @Column(nullable = false)
-    private Integer orderAmount;
-    
+    private Integer orderAmount;        // 주문 금액
+
     @Column(nullable = false)
-    private LocalDateTime orderDate;
-    
+    private LocalDateTime orderDate;    // 주문 일시
+
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;    // 생성일
     
     @Builder
     public Order(Long userId, String orderNumber, Integer orderAmount) {
