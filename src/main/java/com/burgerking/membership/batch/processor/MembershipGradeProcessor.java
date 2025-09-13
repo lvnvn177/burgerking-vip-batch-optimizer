@@ -28,7 +28,7 @@ public class MembershipGradeProcessor implements ItemProcessor<Membership, Membe
     }
 
     @Override
-    public Membership process(Membership membership) throws Exception {
+    public Membership process(@SuppressWarnings("null") Membership membership) throws Exception {
         // 해당 사용자의 월별 주문 내역 필터링
         List<MonthlyOrder> userMonthlyOrders = monthlyOrderList.stream()
                 .filter(order -> order.getUserId().equals(membership.getUserId()))

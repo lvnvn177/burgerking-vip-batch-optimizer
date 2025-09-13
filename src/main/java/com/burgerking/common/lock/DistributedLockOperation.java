@@ -21,4 +21,4 @@ public @interface DistributedLockOperation {
      * 락 획득 타임아웃 (밀리초)
      */
     long timeoutMs() default 3000;
-}
+} 
