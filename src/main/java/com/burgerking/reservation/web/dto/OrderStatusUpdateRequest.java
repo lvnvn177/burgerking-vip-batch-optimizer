@@ -7,6 +7,12 @@ import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.NotNull;
 
+/** 
+ * 주문 상태 관련 Request
+ * 
+ * Field
+ * 현재 주문 상태 
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

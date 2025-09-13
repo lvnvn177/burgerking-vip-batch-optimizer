@@ -14,6 +14,14 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/** 
+ * 주문 관련 Controller
+ * 주문 조회, 추가, 수정, 삭제(취소) 요청 
+ * 
+ * 주문 조회 필터링 
+ * 주문 ID / 주문 번호 / 고객 ID / 매장 ID / 상태 / 주문 요청 시간
+*/
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -25,7 +33,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderRequest orderRequest) {   
         return new ResponseEntity<>(orderService.createOrder(orderRequest), HttpStatus.CREATED);
     }
 
@@ -54,7 +62,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersByStatus(status));
     }
 
-    @GetMapping("/pickup")
+    @GetMapping("/pickup")  
     public ResponseEntity<List<OrderResponse>> getOrdersByPickupTimeBetween(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
@@ -68,7 +76,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.updateOrderStatus(id, statusRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // 주문 ID로 해당 주문 취소
     public ResponseEntity<Void> cancelOrder(@PathVariable Long id) {
         orderService.cancelOrder(id);
         return ResponseEntity.noContent().build();

@@ -12,6 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** 
+ * 메뉴 관련 구현체
+ * 
+ * 조회
+ * 메뉴 ID / 전체 / 해당 메뉴를 주문 가능한 매장 ID / 현재 해당 메뉴를 주문 가능한 매장 ID 
+ * 
+ * 생성 
+ * 메뉴를 추가하고자 하는 매장 ID 
+ * 
+ * 수정
+ * 수정하고자 하는 메뉴 ID 및 수정된 메뉴 Dto
+ * 
+ * 삭제
+ * 메뉴 ID
+ * 
+ * 변환
+ * 메뉴 Entity -> Dto, Dto -> Entity
+ * 
+*/
 @Service
 public class MenuServiceImpl implements MenuService {
 
@@ -25,7 +44,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public MenuDto getMenuById(Long id) {
+    public MenuDto getMenuById(Long id) { // Menu Id로 Menu 찾기 
         Menu menu = menuRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다: " + id));
         return convertToDto(menu);
@@ -33,7 +52,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MenuDto> getAllMenus() {
+    public List<MenuDto> getAllMenus() { // 전체 메뉴 찾기 
         return menuRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
@@ -41,7 +60,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MenuDto> getMenusByStore(Long storeId) {
+    public List<MenuDto> getMenusByStore(Long storeId) { // 매장 ID로 메뉴 찾기 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new RuntimeException("매장을 찾을 수 없습니다: " + storeId));
         
@@ -52,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MenuDto> getAvailableMenusByStore(Long storeId) {
+    public List<MenuDto> getAvailableMenusByStore(Long storeId) { // 매장 ID로 해당 매장에서 주문 가능한 메뉴 찾기 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new RuntimeException("매장을 찾을 수 없습니다: " + storeId));
         
@@ -63,7 +82,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
-    public MenuDto createMenu(MenuDto menuDto) {
+    public MenuDto createMenu(MenuDto menuDto) {  // 특정 매장에 새로운 메뉴 추가 
         Store store = storeRepository.findById(menuDto.getStoreId())
                 .orElseThrow(() -> new RuntimeException("매장을 찾을 수 없습니다: " + menuDto.getStoreId()));
         
@@ -74,7 +93,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
-    public MenuDto updateMenu(Long id, MenuDto menuDto) {
+    public MenuDto updateMenu(Long id, MenuDto menuDto) { // 메뉴 정보 수정
         Menu menu = menuRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다: " + id));
         
@@ -92,11 +111,11 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
-    public void deleteMenu(Long id) {
+    public void deleteMenu(Long id) {   // 메뉴 ID로 해당 메뉴 삭제 
         menuRepository.deleteById(id);
     }
 
-    private MenuDto convertToDto(Menu menu) {
+    private MenuDto convertToDto(Menu menu) {   // Menu 데이터를 Dto 형태로 변환
         return MenuDto.builder()
                 .id(menu.getId())
                 .name(menu.getName())
@@ -106,7 +125,7 @@ public class MenuServiceImpl implements MenuService {
                 .build();
     }
 
-    private Menu convertToEntity(MenuDto menuDto, Store store) {
+    private Menu convertToEntity(MenuDto menuDto, Store store) { // Menu Dto를 엔티티 형태로 변환 
         return Menu.builder()
                 .name(menuDto.getName())
                 .price(menuDto.getPrice())

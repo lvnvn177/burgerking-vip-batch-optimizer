@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/** 
+ * 주문 항목 관련 Repository
+ * 
+ * 조회
+ * 주문 항목을 포함하고 있는 주문 / 특정 메뉴를 포함하고 있는 주문 / 특정 메뉴를 포함하고 있는 주문 항목 수 
+*/
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     

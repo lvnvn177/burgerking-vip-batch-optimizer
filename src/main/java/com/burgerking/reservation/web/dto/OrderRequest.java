@@ -13,6 +13,18 @@ import jakarta.validation.constraints.Future;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/** 
+ * 주문 관련 Request
+ * 
+ * Field
+ * 주문을 요청한 고객 ID / 해당 주문을 요청받은 매장 ID / 배정한 픽업 시간
+ * 주문 항목 리스트 
+ * 
+ * 주문 항목 관련 Request
+ * 
+ * Field
+ * 항목에 해당하는 메뉴 ID / 항목에 속한 메뉴의 수량 
+*/
 @Data
 @Builder
 @NoArgsConstructor

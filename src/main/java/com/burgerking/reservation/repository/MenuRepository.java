@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/** 
+ * 메뉴 관련 Repository
+ * 
+ * 조회
+ * 매장별 / 매장별 판매 가능한 메뉴 / 메뉴 이름 
+*/
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
     

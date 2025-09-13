@@ -9,6 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
+/** 
+ * 매장 관련 Controller
+ * 매장 조회, 추가, 수정, 삭제 요청 
+ * 
+ * 매장 조회 필터링 
+ * 전체 / 오픈 여부 / 매장 ID
+ * 
+ * 
+*/
 @RestController
 @RequestMapping("/api/stores")
 public class StoreController {

@@ -24,6 +24,23 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
+/** 
+ * 주문 관련 구현체
+ * 
+ * 조회
+ * 주문 ID / 주문 번호 / 주문한 고객의 ID / 주문을 요청 받은 매장 ID / 특정 주문 상태 / 픽업 시간대 
+ * 
+ * 생성 
+ * 주문 Request 
+ * 
+ * 수정
+ * 수정하고자 하는 주문 ID 및 수정된 주문 상태 Request
+ * 
+ * 삭제
+ * 주문 ID
+ * 
+*/
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -104,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public OrderResponse getOrderById(Long id) {
+    public OrderResponse getOrderById(Long id) {    
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
@@ -114,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public OrderResponse getOrderByOrderNumber(String orderNumber) {
+    public OrderResponse getOrderByOrderNumber(String orderNumber) {   
         Order order = orderRepository.findByOrderNumber(orderNumber)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + orderNumber));
         
@@ -124,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse> getOrdersByUserId(Long userId) {
+    public List<OrderResponse> getOrdersByUserId(Long userId) { 
         List<Order> orders = orderRepository.findByUserId(userId);
         return orders.stream()
                 .map(order -> {
@@ -136,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse> getOrdersByStore(Long storeId) {
+    public List<OrderResponse> getOrdersByStore(Long storeId) { 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new RuntimeException("매장을 찾을 수 없습니다: " + storeId));
         
@@ -151,7 +168,7 @@ public class OrderServiceImpl implements OrderService {
 
         @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse> getOrdersByStatus(OrderStatus status) {
+    public List<OrderResponse> getOrdersByStatus(OrderStatus status) { 
         List<Order> orders = orderRepository.findByStatus(status);
         return orders.stream()
                 .map(order -> {
@@ -163,7 +180,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse> getOrdersByPickupTimeBetween(LocalDateTime start, LocalDateTime end) {
+    public List<OrderResponse> getOrdersByPickupTimeBetween(LocalDateTime start, LocalDateTime end) { 
         List<Order> orders = orderRepository.findByPickupTimeBetween(start, end);
         return orders.stream()
                 .map(order -> {
@@ -175,7 +192,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderResponse updateOrderStatus(Long id, OrderStatusUpdateRequest statusRequest) {
+    public OrderResponse updateOrderStatus(Long id, OrderStatusUpdateRequest statusRequest) {   
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
@@ -189,7 +206,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void cancelOrder(Long id) {
+    public void cancelOrder(Long id) {  
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
