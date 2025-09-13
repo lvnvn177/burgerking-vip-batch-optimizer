@@ -46,9 +46,9 @@ CREATE TABLE reservations (
 );
 
 -- 초기 데이터 삽입 (예시)
-INSERT INTO products (name, category, description, price, available_quantity, created_at) VALUES
-('킹스페셜 버거', 'BURGER', '한정 수량 프리미엄 버거', 12000.00, 50, NOW());
+-- INSERT INTO products (name, category, description, price, available_quantity, created_at) VALUES
+-- ('킹스페셜 버거', 'BURGER', '한정 수량 프리미엄 버거', 12000.00, 50, NOW());
 
-INSERT INTO seats (name, seat_type, location, is_available, created_at) VALUES
-('창가석 1A', 'VIP', '1층', TRUE, NOW()),
-('창가석 1B', 'VIP', '1층', TRUE, NOW());
+-- INSERT INTO seats (name, seat_type, location, is_available, created_at) VALUES
+-- ('창가석 1A', 'VIP', '1층', TRUE, NOW()),
+-- ('창가석 1B', 'VIP', '1층', TRUE, NOW());
