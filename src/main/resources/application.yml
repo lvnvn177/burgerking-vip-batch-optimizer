@@ -60,13 +60,7 @@ spring:
     init:
       mode: never # 데이터베이스 초기화 비활성화
   datasource:
-    membership:
       url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      username: user
-      password: password
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    reservation:
-      url: jdbc:mysql://localhost:3306/reservation_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       username: user
       password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
