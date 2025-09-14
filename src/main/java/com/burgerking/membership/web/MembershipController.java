@@ -51,4 +51,23 @@ public class MembershipController {
         membershipService.evaluateAndRenewAllMembershipGrades();
         return ResponseEntity.status(HttpStatus.OK).body("All membership grades evaluated and renewed.");
     }
+    /**
+     * (테스트용) 비최적화된 멤버십 등급 조정 배치를 실행합니다.
+     * POST /api/memberships/adjust-batch-non-optimized
+     */
+    @PostMapping("/adjust-batch-non-optimized")
+    public ResponseEntity<String> runNonOptimizedBatch() {
+        membershipService.runNonOptimizedBatch();
+        return ResponseEntity.ok("Non-optimized batch job started.");
+    }
+
+    /**
+     * (테스트용) 최적화된 멤버십 등급 조정 배치를 실행합니다.
+     * POST /api/memberships/adjust-batch
+     */
+    @PostMapping("/adjust-batch")
+    public ResponseEntity<String> runOptimizedBatch() {
+        membershipService.runOptimizedBatch();
+        return ResponseEntity.ok("Optimized batch job started.");
+    }
 }

@@ -26,9 +26,11 @@ import java.util.List;
 */
 
 public interface OrderService {
-    OrderResponse createOrder(OrderRequest orderRequest);   
-    OrderResponse getOrderById(Long id);    
-    OrderResponse getOrderByOrderNumber(String orderNumber); 
+    OrderResponse createOrder(OrderRequest orderRequest);
+    OrderResponse createOrderNonOptimized(OrderRequest orderRequest);
+    OrderResponse createOrderOptimized(OrderRequest orderRequest);
+    OrderResponse getOrderById(Long id);
+    OrderResponse getOrderByOrderNumber(String orderNumber);
     List<OrderResponse> getOrdersByUserId(Long userId);
     List<OrderResponse> getOrdersByStore(Long storeId); 
     List<OrderResponse> getOrdersByStatus(OrderStatus status); 

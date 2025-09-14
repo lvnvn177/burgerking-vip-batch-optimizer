@@ -8,8 +8,7 @@ DROP TABLE IF EXISTS members;
 CREATE TABLE members (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    membership_level VARCHAR(20) NOT NULL DEFAULT 'REGULAR',
+    membership_level VARCHAR(20) NOT NULL DEFAULT '브론즈',
     last_level_updated_at DATETIME,
     created_at DATETIME NOT NULL,
     updated_at DATETIME
@@ -27,7 +26,7 @@ CREATE TABLE orders (
 );
 
 -- 초기 데이터 삽입 (예시)
--- INSERT INTO members (name, email, membership_level, created_at) VALUES
--- ('김철수', 'chulsu.kim@example.com', 'REGULAR', NOW());
+-- INSERT INTO members (name, membership_level, created_at) VALUES
+-- ('김철수', '브론즈', NOW());
 -- INSERT INTO orders (member_id, order_date, total_amount, order_status, created_at) VALUES
 -- (1, DATE_SUB(NOW(), INTERVAL 20 DAY), 25000.00, 'COMPLETED', NOW());

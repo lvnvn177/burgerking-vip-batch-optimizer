@@ -62,6 +62,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
+    public OrderResponse createOrderNonOptimized(OrderRequest orderRequest) {
+        return createOrder(orderRequest); // Non-optimized version simply calls the base createOrder
+    }
+
+    @Override
+    @Transactional
+    public OrderResponse createOrderOptimized(OrderRequest orderRequest) {
+        // This will be the optimized version with pessimistic locking.
+        // For now, it also calls the base createOrder.
+        // Actual locking logic will be added later by modifying the menuRepository.
+        return createOrder(orderRequest);
+    }
+
+    @Override
+    @Transactional
     public OrderResponse createOrder(OrderRequest orderRequest) {
         // 1. 매장 조회
         Store store = storeRepository.findById(orderRequest.getStoreId())
@@ -89,13 +104,22 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (OrderRequest.OrderItemRequest itemRequest : orderRequest.getItems()) {
-            Menu menu = menuRepository.findById(itemRequest.getMenuId())
+            Menu menu = menuRepository.findByIdWithPessimisticLock(itemRequest.getMenuId())
                     .orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다: " + itemRequest.getMenuId()));
 
             // 메뉴가 판매 가능한지 확인
             if (!menu.isAvailable()) {
                 throw new RuntimeException("현재 판매 불가능한 메뉴입니다: " + menu.getName());
             }
+
+            // 재고 확인
+            if (menu.getAvailableQuantity() < itemRequest.getQuantity()) {
+                throw new RuntimeException("재고가 부족합니다: " + menu.getName());
+            }
+
+            // 재고 감소
+            menu.decreaseAvailableQuantity(itemRequest.getQuantity());
+            // menuRepository.save(menu); // @Transactional이므로 변경 감지 후 자동 저장
 
             OrderItem orderItem = OrderItem.builder()
                     .order(savedOrder)

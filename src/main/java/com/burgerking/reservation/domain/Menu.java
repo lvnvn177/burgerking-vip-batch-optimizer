@@ -45,8 +45,11 @@ public class Menu {
     private Store store;        
     
     @Column(nullable = false)
-    private boolean available;  
-    
+    private boolean available;
+
+    @Column(nullable = false)
+    private Integer availableQuantity; // 예약 가능한 수량
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
     
@@ -61,5 +64,13 @@ public class Menu {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public void decreaseAvailableQuantity(Integer quantity) {
+        if (this.availableQuantity < quantity) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        this.availableQuantity -= quantity;
+        this.updatedAt = LocalDateTime.now();
     }
 }

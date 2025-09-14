@@ -24,7 +24,9 @@ public class MembershipService {
     
     private final MembershipRepository membershipRepository;
     private final MonthlyOrderRepository monthlyOrderRepository;
-    private final OrderRepository orderRepository; // Order 엔티티 저장 
+    private final OrderRepository orderRepository; // Order 엔티티 저장
+    private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
+    private final org.springframework.batch.core.Job membershipGradeJob;
 
     /**
      * 새로운 사용자 멤버십을 생성하거나 기존 멤버십을 조회합니다.
@@ -116,5 +118,52 @@ public class MembershipService {
      */
     public Optional<Membership> getMembershipByUserId(Long userId) {
         return membershipRepository.findByUserId(userId);
+    }
+
+    /**
+     * (테스트용) 비최적화된 멤버십 등급 조정 배치를 실행합니다.
+     * N+1 문제를 시뮬레이션합니다.
+     */
+    @Transactional
+    public void runNonOptimizedBatch() {
+        System.out.println("Running non-optimized batch job...");
+        LocalDateTime evaluationTime = LocalDateTime.now();
+
+        List<Membership> allMemberships = membershipRepository.findAll();
+
+        for (Membership membership : allMemberships) {
+            YearMonth endMonth = YearMonth.now().minusMonths(1);
+            YearMonth startMonth = endMonth.minusMonths(2);
+
+            List<MonthlyOrder> last3MonthsOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
+                membership.getUserId(), startMonth, endMonth);
+            
+            int total3MonthAmount = last3MonthsOrders.stream()
+                .mapToInt(MonthlyOrder::getTotalAmount)
+                .sum();
+
+            MembershipGrade newGrade = MembershipGrade.evaluateGrade(total3MonthAmount);
+            
+            membership.updateGrade(newGrade, evaluationTime);
+            membershipRepository.save(membership);
+        }
+        System.out.println("Non-optimized batch job finished.");
+    }
+
+    /**
+     * (테스트용) 최적화된 멤버십 등급 조정 배치를 실행합니다.
+     * Spring Batch를 사용하여 처리합니다.
+     */
+    public void runOptimizedBatch() {
+        try {
+            org.springframework.batch.core.JobParameters jobParameters = new org.springframework.batch.core.JobParametersBuilder()
+                    .addString("time", LocalDateTime.now().toString())
+                    .toJobParameters();
+            jobLauncher.run(membershipGradeJob, jobParameters);
+            System.out.println("Optimized batch job launched successfully.");
+        } catch (Exception e) {
+            System.err.println("Error launching optimized batch job: " + e.getMessage());
+            throw new RuntimeException("Failed to launch optimized batch job", e);
+        }
     }
 }
