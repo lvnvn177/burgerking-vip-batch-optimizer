@@ -47,12 +47,4 @@ public class OpenApiConfig {
                 .pathsToMatch("/api/membership/**")
                 .build();
     }
-
-    @Bean
-    public GroupedOpenApi reservationApi() {
-        return GroupedOpenApi.builder()
-                .group("Reservation API")
-                .pathsToMatch("/api/reservation/**")
-                .build();
-    }
 }
