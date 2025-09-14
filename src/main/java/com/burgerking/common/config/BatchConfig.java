@@ -14,6 +14,7 @@ public class BatchConfig {
     @Bean
     public JobRepository jobRepository(
         @Qualifier("membershipDataSource") DataSource dataSource,
+        @Qualifier("membershipTransactionManager") 
         PlatformTransactionManager transactionManager
     ) throws Exception {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
