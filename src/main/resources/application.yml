@@ -1,5 +1,7 @@
 # src/main/resources/application.yml (공통 설정)
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
   application:
     name: vip-batch-optimizer
   profiles:
