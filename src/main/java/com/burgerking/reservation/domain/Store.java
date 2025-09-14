@@ -23,13 +23,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Store { 
+public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false, length = 100)
+    private String name; // 매장 이름 추가
+    
     @Column(nullable = false)
-    private boolean isOpen;     
+    private boolean isOpen;
     
     @Column(nullable = false)
     private LocalDateTime createdAt;
