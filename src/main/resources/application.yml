@@ -54,9 +54,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # 테이블 자동 생성/업데이트
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+   
+   
   sql:
     init:
       mode: never # 데이터베이스 초기화 비활성화

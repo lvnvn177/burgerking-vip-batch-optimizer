@@ -25,7 +25,7 @@ CREATE TABLE orders (
     FOREIGN KEY (user_id) REFERENCES members(user_id)
 );
 
--- 초기 데이터 삽입 (예시)
+-- 초기 데이터 삽입 
 INSERT INTO members (user_id, grade, last_evaluation_date, next_evaluation_date, created_at, updated_at) VALUES
 (1001, 'BRONZE', NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), NOW(), NOW()),
 (1002, 'SILVER', NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), NOW(), NOW()),
