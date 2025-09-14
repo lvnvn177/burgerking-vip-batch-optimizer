@@ -3,7 +3,6 @@ package com.burgerking.membership.batch.config;
 import com.burgerking.membership.batch.processor.MembershipGradeProcessor;
 import com.burgerking.membership.batch.writer.MembershipGradeWriter;
 import com.burgerking.membership.domain.Membership;
-import com.burgerking.membership.domain.MonthlyOrder;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import jakarta.persistence.EntityManagerFactory;
 import java.time.YearMonth;
-import java.util.List;
+
 
 @Slf4j
 @Configuration
@@ -71,12 +70,10 @@ public class MembershipGradeBatchConfig {
         YearMonth endMonth = YearMonth.now().minusMonths(1);
         YearMonth startMonth = endMonth.minusMonths(2);
 
-        List<MonthlyOrder> allMonthlyOrders = monthlyOrderRepository.findByYearMonthBetween(startMonth, endMonth);
-
         return new StepBuilder("membershipGradeStep", jobRepository)
                 .<Membership, Membership>chunk(CHUNK_SIZE, transactionManager)
                 .reader(membershipItemReader())
-                .processor(new MembershipGradeProcessor(allMonthlyOrders, startMonth, endMonth))
+                .processor(new MembershipGradeProcessor(monthlyOrderRepository, startMonth, endMonth))
                 .writer(new MembershipGradeWriter(membershipRepository))
                 .build();
     }
