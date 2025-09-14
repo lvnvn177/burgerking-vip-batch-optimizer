@@ -26,9 +26,14 @@ public class BatchConfig {
         return factory.getObject();
     }
     @Bean
-    public JobExplorer jobExplorer(@Qualifier("membershipDataSource") DataSource dataSource) throws Exception {
+    public JobExplorer jobExplorer(
+        @Qualifier("membershipDataSource") DataSource dataSource,
+        @Qualifier("membershipTransactionManager")
+        PlatformTransactionManager transactionManager
+        ) throws Exception {
         JobExplorerFactoryBean factoryBean = new JobExplorerFactoryBean();
         factoryBean.setDataSource(dataSource);
+        factoryBean.setTransactionManager(transactionManager);
         factoryBean.afterPropertiesSet();
         return factoryBean.getObject();
     }
