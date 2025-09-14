@@ -1,6 +1,8 @@
 package com.burgerking.common.config;
 
 import javax.sql.DataSource;
+import org.springframework.batch.core.explore.JobExplorer;
+import org.springframework.batch.core.explore.support.JobExplorerFactoryBean;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,5 +24,12 @@ public class BatchConfig {
         factory.setTransactionManager(transactionManager);
         factory.afterPropertiesSet();
         return factory.getObject();
+    }
+    @Bean
+    public JobExplorer jobExplorer(@Qualifier("membershipDataSource") DataSource dataSource) throws Exception {
+        JobExplorerFactoryBean factoryBean = new JobExplorerFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.afterPropertiesSet();
+        return factoryBean.getObject();
     }
 }
