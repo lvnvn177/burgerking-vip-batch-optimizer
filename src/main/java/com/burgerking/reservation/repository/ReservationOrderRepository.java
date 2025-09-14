@@ -38,13 +38,13 @@ public interface ReservationOrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByStoreAndStatus(Store store, OrderStatus status);
     
     // 특정 시간대의 픽업 주문 찾기
-    @Query("SELECT o FROM Order o WHERE o.pickupTime BETWEEN :startTime AND :endTime")
+    @Query("SELECT o FROM com.burgerking.reservation.domain.Order o WHERE o.pickupTime BETWEEN :startTime AND :endTime")
     List<Order> findByPickupTimeBetween(
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime);
     
     // 특정 매장의 특정 시간대 픽업 주문 수 조회
-    @Query("SELECT COUNT(o) FROM Order o WHERE o.store.id = :storeId AND o.pickupTime BETWEEN :startTime AND :endTime AND o.status NOT IN ('CANCELED')")
+    @Query("SELECT COUNT(o) FROM com.burgerking.reservation.domain.Order o WHERE o.store.id = :storeId AND o.pickupTime BETWEEN :startTime AND :endTime AND o.status NOT IN ('CANCELED')")
     long countActiveOrdersByStoreAndPickupTime(
             @Param("storeId") Long storeId,
             @Param("startTime") LocalDateTime startTime,
