@@ -20,7 +20,7 @@ public class MembershipGradeWriter implements ItemWriter<Membership> {
     }
 
     @Override
-    public void write(Chunk<? extends Membership> chunk) throws Exception {
+    public void write(@SuppressWarnings("null") Chunk<? extends Membership> chunk) throws Exception {
         log.info("멤버십 등급 갱신 배치 - {} 건 처리", chunk.size());
 
         for (Membership membership : chunk) {
