@@ -3,10 +3,14 @@ spring:
   application:
     name: vip-batch-optimizer
   profiles:
-    active: dev # 기본적으로 개발 프로파일 활성화
+    active: local-dev # 기본적으로 local-dev 프로파일 활성화
+  data:
+    redis:
+      host: localhost
+      port: 6379
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -48,20 +52,6 @@ logging:
     '[org.hibernate.type.descriptor.sql.BasicBinder]': TRACE
 
 ---
-# 쿠폰 서비스 MySQL 설정 (Docker Compose 사용 시)
-spring:
-  config:
-    activate:
-      on-profile: coupon
-  datasource:
-    url: jdbc:mysql://localhost:3306/coupon_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: user
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
 
 springdoc:
   packages-to-scan: com.burgerking
@@ -72,3 +62,37 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
     operations-sorter: alpha
+
+---
+# 로컬 개발 환경 설정 (로컬 MySQL 사용)
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/reservation_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
