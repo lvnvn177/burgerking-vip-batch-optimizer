@@ -36,6 +36,8 @@ public class MembershipGradeBatchConfig {
 
 
     private final JobRepository jobRepository;
+    
+    @Qualifier("membershipTransactionManager")
     private final PlatformTransactionManager transactionManager;
 
     @Qualifier("membershipEntityManagerFactory")
