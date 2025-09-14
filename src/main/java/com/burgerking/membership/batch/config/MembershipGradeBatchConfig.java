@@ -5,7 +5,6 @@ import com.burgerking.membership.batch.writer.MembershipGradeWriter;
 import com.burgerking.membership.domain.Membership;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -15,8 +14,8 @@ import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 
@@ -31,21 +30,30 @@ import java.time.YearMonth;
 @Slf4j
 @Configuration
 @EnableBatchProcessing
-@RequiredArgsConstructor
 public class MembershipGradeBatchConfig {
 
 
     private final JobRepository jobRepository;
-    
-    @Qualifier("membershipTransactionManager")
     private final PlatformTransactionManager transactionManager;
-
-    @Qualifier("membershipEntityManagerFactory")
     private final EntityManagerFactory entityManagerFactory;
     private final MembershipRepository membershipRepository;
     private final MonthlyOrderRepository monthlyOrderRepository;
 
     private static final int CHUNK_SIZE = 100;
+
+   
+    public MembershipGradeBatchConfig(
+            JobRepository jobRepository,
+            @Qualifier("membershipTransactionManager") PlatformTransactionManager transactionManager,
+            @Qualifier("membershipEntityManagerFactory") EntityManagerFactory entityManagerFactory,
+            MembershipRepository membershipRepository,
+            MonthlyOrderRepository monthlyOrderRepository) {
+        this.jobRepository = jobRepository;
+        this.transactionManager = transactionManager;
+        this.entityManagerFactory = entityManagerFactory;
+        this.membershipRepository = membershipRepository;
+        this.monthlyOrderRepository = monthlyOrderRepository;
+    }
 
     /**
      * 멤버십 등급 평가 Job을 정의합니다.
