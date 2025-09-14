@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.explore.support.JobExplorerFactoryBean;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.support.SimpleJobOperator;
 import org.springframework.batch.core.repository.JobRepository;
@@ -45,12 +46,14 @@ public class BatchConfig {
         JobLauncher jobLauncher,
         JobRepository jobRepository,
         JobExplorer jobExplorer,
+        JobRegistry jobRegistry,
         @Qualifier("membershipTransactionManager") PlatformTransactionManager transactionManager
     ) throws Exception {
         SimpleJobOperator jobOperator = new SimpleJobOperator();
         jobOperator.setJobLauncher(jobLauncher);
         jobOperator.setJobRepository(jobRepository);
         jobOperator.setJobExplorer(jobExplorer);
+        jobOperator.setJobRegistry(jobRegistry);
         jobOperator.afterPropertiesSet();
         return jobOperator;
     }
