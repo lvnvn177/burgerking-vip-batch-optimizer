@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 )
 public class MembershipDataSourceConfig {
 
-    @Primary
     @Bean(name = "membershipProperties")
     @ConfigurationProperties("spring.datasource.membership")
     public DataSourceProperties membershipProperties() {
@@ -36,7 +35,6 @@ public class MembershipDataSourceConfig {
         return properties.initializeDataSourceBuilder().build();
     }
 
-    @Primary
     @Bean(name = "membershipEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean membershipEntityManagerFactory(
         EntityManagerFactoryBuilder builder,
@@ -49,7 +47,6 @@ public class MembershipDataSourceConfig {
     }
 
     @SuppressWarnings("null")
-    @Primary
     @Bean(name = "membershipTransactionManager")
     public PlatformTransactionManager membershipTransactionManager(
         @Qualifier("membershipEntityManagerFactory") LocalContainerEntityManagerFactoryBean membershipEntityManagerFactory) {
