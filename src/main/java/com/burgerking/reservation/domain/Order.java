@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
  * Method
  * 주문 생성 시각 갱신 / 주문 수정 시각 갱신
 */
-@Entity
+@Entity(name = "ReservationOrder")
 @Table(name = "orders")
 @Getter @Setter
 @NoArgsConstructor
