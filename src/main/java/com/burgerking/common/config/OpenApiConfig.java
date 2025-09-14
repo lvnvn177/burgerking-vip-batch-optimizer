@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,9 +16,9 @@ public class OpenApiConfig {
     public OpenAPI openAPI() {
        // API 기본 정보 설정
        Info info = new Info()
-          .title("BurgerKing VIP Batch Optimizer API Document")
+          .title("BurgerKing Backend System API Document")
           .version("1.0")
-          .description("BurgerKing VIP Batch Optimizer API 문서입니다.")
+          .description("BurgerKing 백엔드 시스템 API 문서입니다.")
           .contact(new io.swagger.v3.oas.models.info.Contact().email("billage.official@gmail.com")); // Placeholder email
 
        // JWT 인증 방식 설정
@@ -37,5 +38,21 @@ public class OpenApiConfig {
           .components(components)
           .info(info)
           .addSecurityItem(securityRequirement);
+    }
+
+    @Bean
+    public GroupedOpenApi membershipApi() {
+        return GroupedOpenApi.builder()
+                .group("Membership API")
+                .pathsToMatch("/api/membership/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi reservationApi() {
+        return GroupedOpenApi.builder()
+                .group("Reservation API")
+                .pathsToMatch("/api/reservation/**")
+                .build();
     }
 }

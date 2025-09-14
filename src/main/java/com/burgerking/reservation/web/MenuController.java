@@ -17,7 +17,7 @@ import java.util.List;
  * 전체 / 메뉴 ID / 매장 ID / 매장 ID(주문 가능한 것만) 
 */
 @RestController
-@RequestMapping("/api/menus")
+@RequestMapping("/api/reservation/menus")
 public class MenuController {
 
     private final MenuService menuService;

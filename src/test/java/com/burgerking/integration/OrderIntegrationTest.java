@@ -92,7 +92,7 @@ public class OrderIntegrationTest {
 
         // 주문 생성 요청
         ResponseEntity<OrderResponse> createResponse = restTemplate.postForEntity(
-                "/api/orders", orderRequest, OrderResponse.class);
+                "/api/reservation/orders", orderRequest, OrderResponse.class);
 
         // 응답 검증
         assertEquals(HttpStatus.CREATED, createResponse.getStatusCode());
@@ -107,7 +107,7 @@ public class OrderIntegrationTest {
         // 생성된 주문 조회
         Long orderId = responseBody.getId();
         ResponseEntity<OrderResponse> getResponse = restTemplate.getForEntity(
-                "/api/orders/" + orderId, OrderResponse.class);
+                "/api/reservation/orders/" + orderId, OrderResponse.class);
 
         // 조회 결과 검증
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());

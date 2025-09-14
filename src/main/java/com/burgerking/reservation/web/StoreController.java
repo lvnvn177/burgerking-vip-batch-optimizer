@@ -19,7 +19,7 @@ import java.util.List;
  * 
 */
 @RestController
-@RequestMapping("/api/stores")
+@RequestMapping("/api/reservation/stores")
 public class StoreController {
 
     private final StoreService storeService;

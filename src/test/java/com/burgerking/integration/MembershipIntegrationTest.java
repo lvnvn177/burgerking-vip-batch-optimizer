@@ -83,7 +83,7 @@ public class MembershipIntegrationTest {
     @DisplayName("신규 사용자 멤버십 생성 통합 테스트")
     void createNewMembership() throws Exception {
         // when
-        mockMvc.perform(get("/api/memberships/{userId}", testUserId)
+        mockMvc.perform(get("/api/membership/memberships/{userId}", testUserId)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.userId").value(testUserId))
@@ -104,7 +104,7 @@ public class MembershipIntegrationTest {
     void processOrder() throws Exception {
         // given
         // 먼저 멤버십 생성
-        mockMvc.perform(get("/api/memberships/{userId}", testUserId))
+        mockMvc.perform(get("/api/membership/memberships/{userId}", testUserId))
             .andExpect(status().isOk());
         
         // 주문 요청 객체 생성
@@ -115,11 +115,11 @@ public class MembershipIntegrationTest {
         );
 
         // when
-        mockMvc.perform(post("/api/memberships/orders")
+        mockMvc.perform(post("/api/membership/memberships/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderRequest)))
                 .andExpect(status().isOk())
-                .andReturn();   
+                .andReturn();
         
         // then
         // 현재 월의 주문 데이터 검증
@@ -140,7 +140,7 @@ public class MembershipIntegrationTest {
     void evaluateAndRenewMembershipGrades() throws Exception {
         // given
         // 먼저 멤버십 생성
-        mockMvc.perform(get("/api/memberships/{userId}", testUserId))
+        mockMvc.perform(get("/api/membership/memberships/{userId}", testUserId))
                 .andExpect(status().isOk());
         
         // 3개월치 주문 데이터 생성 (직전 3개월)
@@ -164,7 +164,7 @@ public class MembershipIntegrationTest {
         // 총 45만원 -> GOLD 등급 기준 충족
 
         // when 
-        mockMvc.perform(post("/api/memberships/evaluate")
+        mockMvc.perform(post("/api/membership/memberships/evaluate")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 

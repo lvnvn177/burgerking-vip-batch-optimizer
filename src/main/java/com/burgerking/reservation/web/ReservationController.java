@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/reservation/reservations")
 public class ReservationController {
 
     private final OrderService orderService;

@@ -23,7 +23,7 @@ import java.util.List;
 */
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/reservation/orders")
 public class OrderController {
 
     private final OrderService orderService;

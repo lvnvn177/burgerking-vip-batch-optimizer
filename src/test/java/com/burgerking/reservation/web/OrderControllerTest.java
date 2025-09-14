@@ -90,7 +90,7 @@ public class OrderControllerTest {
                 .build();
 
         // 주문 생성 API 호출
-        MvcResult result = mockMvc.perform(post("/api/orders")
+        MvcResult result = mockMvc.perform(post("/api/reservation/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderRequest)))
                 .andExpect(status().isCreated())
@@ -104,7 +104,7 @@ public class OrderControllerTest {
                 result.getResponse().getContentAsString(), OrderResponse.class);
 
         // 주문 조회 API 호출
-        mockMvc.perform(get("/api/orders/" + response.getId()))
+        mockMvc.perform(get("/api/reservation/orders/" + response.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(response.getId()))
                 .andExpect(jsonPath("$.orderNumber").value(response.getOrderNumber()));
