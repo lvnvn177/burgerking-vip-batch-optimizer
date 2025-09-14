@@ -47,16 +47,10 @@ springdoc:
     operations-sorter: alpha
 
 ---
-# 로컬 개발 환경 설정 (로컬 MySQL 사용)
 spring:
   config:
     activate:
       on-profile: local-dev
-  datasource:
-    url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: user
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update # 테이블 자동 생성/업데이트
@@ -66,21 +60,14 @@ spring:
   sql:
     init:
       mode: never # 데이터베이스 초기화 비활성화
-
----
-# reservation_db 설정
-spring:
-  config:
-    activate:
-      on-profile: local-dev
   datasource:
-    url: jdbc:mysql://localhost:3306/reservation_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: user
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update # 테이블 자동 생성/업데이트
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+    membership:
+      url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: user
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    reservation:
+      url: jdbc:mysql://localhost:3306/reservation_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: user
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver

@@ -2,6 +2,9 @@ package com.burgerking.common.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +23,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 )
 public class ReservationDataSourceConfig {
 
+    @Bean(name = "reservationProperties")
+    @ConfigurationProperties("spring.datasource.reservation")
+    public DataSourceProperties reservationProperties() {
+        return new DataSourceProperties();
+    }
+
     @Bean(name = "reservationDataSource")
-    public DataSource reservationDataSource(CustomDataSourceProperties properties) {
-        return properties.getReservation().initializeDataSourceBuilder().build();
+    public DataSource reservationDataSource(@Qualifier("reservationProperties") DataSourceProperties properties) {
+        return properties.initializeDataSourceBuilder().build();
     }
 
     @Bean(name = "reservationEntityManagerFactory")
