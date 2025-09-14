@@ -13,7 +13,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -31,6 +30,7 @@ public class MembershipDataSourceConfig {
 
     @Primary
     @Bean(name = "membershipDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.membership")
     public DataSource membershipDataSource(@Qualifier("membershipProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
