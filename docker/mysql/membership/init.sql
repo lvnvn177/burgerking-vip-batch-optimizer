@@ -7,22 +7,22 @@ DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    membership_level VARCHAR(20) NOT NULL DEFAULT '브론즈',
-    last_level_updated_at DATETIME,
+    user_id BIGINT NOT NULL UNIQUE,
+    grade VARCHAR(20) NOT NULL,
+    last_evaluation_date DATETIME NOT NULL,
+    next_evaluation_date DATETIME NOT NULL,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME
+    updated_at DATETIME NOT NULL
 );
 
 CREATE TABLE orders (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    member_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    order_number VARCHAR(255) NOT NULL,
+    order_amount INT NOT NULL,
     order_date DATETIME NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    order_status VARCHAR(20) NOT NULL,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME,
-    FOREIGN KEY (member_id) REFERENCES members(id)
+    FOREIGN KEY (user_id) REFERENCES members(user_id)
 );
 
 -- 초기 데이터 삽입 (예시)
