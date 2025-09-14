@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/** 
+/**
  * 주문 관련 Repository
- * 
+ *
  * 조회
- * 주문 ID / 주문을 요청한 고객 ID / 주문을 요청받은 매장 ID / 특정 주문 상태 
- * 픽업한 특정 시간대 / (매장 ID, 픽업 시간대) 
+ * 주문 ID / 주문을 요청한 고객 ID / 주문을 요청받은 매장 ID / 특정 주문 상태
+ * 픽업한 특정 시간대 / (매장 ID, 픽업 시간대)
 */
-@Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+@Repository("reservationOrderRepository")
+public interface ReservationOrderRepository extends JpaRepository<Order, Long> {
     
     // 주문 번호로 주문 찾기
     Optional<Order> findByOrderNumber(String orderNumber);

@@ -7,7 +7,7 @@ import com.burgerking.reservation.domain.Store;
 import com.burgerking.reservation.domain.enums.OrderStatus;
 import com.burgerking.reservation.repository.MenuRepository;
 import com.burgerking.reservation.repository.OrderItemRepository;
-import com.burgerking.reservation.repository.OrderRepository;
+import com.burgerking.reservation.repository.ReservationOrderRepository;
 import com.burgerking.reservation.repository.StoreRepository;
 import com.burgerking.reservation.service.impl.OrderServiceImpl;
 import com.burgerking.reservation.web.dto.OrderRequest;
@@ -38,7 +38,7 @@ import static org.mockito.Mockito.*;
 public class OrderServiceTest {
 
     @Mock
-    private OrderRepository orderRepository;
+    private ReservationOrderRepository reservationOrderRepository;
 
     @Mock
     private OrderItemRepository orderItemRepository;
@@ -113,7 +113,7 @@ public class OrderServiceTest {
     void createOrder_ShouldReturnCreatedOrder() {
         when(storeRepository.findById(1L)).thenReturn(Optional.of(testStore));
         when(menuRepository.findById(1L)).thenReturn(Optional.of(testMenu));
-        when(orderRepository.save(any(Order.class))).thenReturn(testOrder);
+        when(reservationOrderRepository.save(any(Order.class))).thenReturn(testOrder);
         when(orderItemRepository.saveAll(anyList())).thenReturn(Arrays.asList(testOrderItem));
         when(orderItemRepository.findByOrder(testOrder)).thenReturn(Arrays.asList(testOrderItem));
 
@@ -138,7 +138,7 @@ public class OrderServiceTest {
         // 저장소 호출 검증
         verify(storeRepository, times(1)).findById(1L);
         verify(menuRepository, times(1)).findById(1L);
-        verify(orderRepository, times(2)).save(any(Order.class)); // 총액 업데이트 때문에 두 번 호출
+        verify(reservationOrderRepository, times(2)).save(any(Order.class)); // 총액 업데이트 때문에 두 번 호출
         verify(orderItemRepository, times(1)).saveAll(anyList());
         verify(orderItemRepository, times(1)).findByOrder(testOrder);
     }
@@ -155,7 +155,7 @@ public class OrderServiceTest {
         assertThrows(RuntimeException.class, () -> orderService.createOrder(testOrderRequest));
         verify(storeRepository, times(1)).findById(1L);
         verify(menuRepository, never()).findById(anyLong());
-        verify(orderRepository, never()).save(any(Order.class));
+        verify(reservationOrderRepository, never()).save(any(Order.class));
     }
 
     /**
@@ -171,7 +171,7 @@ public class OrderServiceTest {
         assertThrows(RuntimeException.class, () -> orderService.createOrder(testOrderRequest));
         verify(storeRepository, times(1)).findById(1L);
         verify(menuRepository, times(1)).findById(1L);
-        verify(orderRepository, times(1)).save(any(Order.class)); // 주문은 생성되지만 항목 추가 중 예외 발생
+        verify(reservationOrderRepository, times(1)).save(any(Order.class)); // 주문은 생성되지만 항목 추가 중 예외 발생
     }
 
     /**
@@ -179,7 +179,7 @@ public class OrderServiceTest {
      */
     @Test
     void getOrderById_ShouldReturnOrder() {
-        when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+        when(reservationOrderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
         when(orderItemRepository.findByOrder(testOrder)).thenReturn(Arrays.asList(testOrderItem));
 
         OrderResponse result = orderService.getOrderById(1L);
@@ -187,7 +187,7 @@ public class OrderServiceTest {
         assertNotNull(result);
         assertEquals(testOrder.getId(), result.getId());
         assertEquals(testOrder.getOrderNumber(), result.getOrderNumber());
-        verify(orderRepository, times(1)).findById(1L);
+        verify(reservationOrderRepository, times(1)).findById(1L);
         verify(orderItemRepository, times(1)).findByOrder(testOrder);
     }
 
@@ -196,7 +196,7 @@ public class OrderServiceTest {
      */
     @Test
     void getOrderByOrderNumber_ShouldReturnOrder() {
-        when(orderRepository.findByOrderNumber("BK-12345678")).thenReturn(Optional.of(testOrder));
+        when(reservationOrderRepository.findByOrderNumber("BK-12345678")).thenReturn(Optional.of(testOrder));
         when(orderItemRepository.findByOrder(testOrder)).thenReturn(Arrays.asList(testOrderItem));
 
         OrderResponse result = orderService.getOrderByOrderNumber("BK-12345678");
@@ -204,7 +204,7 @@ public class OrderServiceTest {
         assertNotNull(result);
         assertEquals(testOrder.getId(), result.getId());
         assertEquals("BK-12345678", result.getOrderNumber());
-        verify(orderRepository, times(1)).findByOrderNumber("BK-12345678");
+        verify(reservationOrderRepository, times(1)).findByOrderNumber("BK-12345678");
         verify(orderItemRepository, times(1)).findByOrder(testOrder);
     }
 }

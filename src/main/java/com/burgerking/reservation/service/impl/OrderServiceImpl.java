@@ -7,7 +7,7 @@ import com.burgerking.reservation.domain.Store;
 import com.burgerking.reservation.domain.enums.OrderStatus;
 import com.burgerking.reservation.repository.MenuRepository;
 import com.burgerking.reservation.repository.OrderItemRepository;
-import com.burgerking.reservation.repository.OrderRepository;
+import com.burgerking.reservation.repository.ReservationOrderRepository;
 import com.burgerking.reservation.repository.StoreRepository;
 import com.burgerking.reservation.service.OrderService;
 import com.burgerking.reservation.web.dto.OrderRequest;
@@ -44,17 +44,17 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private final OrderRepository orderRepository;
+    private final ReservationOrderRepository reservationOrderRepository;
     private final OrderItemRepository orderItemRepository;
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
 
     public OrderServiceImpl(
-            OrderRepository orderRepository,
+            ReservationOrderRepository reservationOrderRepository,
             OrderItemRepository orderItemRepository,
             StoreRepository storeRepository,
             MenuRepository menuRepository) {
-        this.orderRepository = orderRepository;
+        this.reservationOrderRepository = reservationOrderRepository;
         this.orderItemRepository = orderItemRepository;
         this.storeRepository = storeRepository;
         this.menuRepository = menuRepository;
@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
                 .status(OrderStatus.PENDING)
                 .build();
 
-        Order savedOrder = orderRepository.save(order);
+        Order savedOrder = reservationOrderRepository.save(order);
 
         // 4. 주문 항목 생성 및 총액 계산
         BigDecimal totalAmount = BigDecimal.ZERO;
@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
 
         // 총액 업데이트
         savedOrder.setTotalAmount(totalAmount);
-        savedOrder = orderRepository.save(savedOrder);
+        savedOrder = reservationOrderRepository.save(savedOrder);
 
         // 5. 응답 생성
         return convertToOrderResponse(savedOrder, orderItems);
@@ -146,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public OrderResponse getOrderById(Long id) {    
-        Order order = orderRepository.findById(id)
+        Order order = reservationOrderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
         List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -156,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public OrderResponse getOrderByOrderNumber(String orderNumber) {   
-        Order order = orderRepository.findByOrderNumber(orderNumber)
+        Order order = reservationOrderRepository.findByOrderNumber(orderNumber)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + orderNumber));
         
         List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -166,7 +166,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderResponse> getOrdersByUserId(Long userId) { 
-        List<Order> orders = orderRepository.findByUserId(userId);
+        List<Order> orders = reservationOrderRepository.findByUserId(userId);
         return orders.stream()
                 .map(order -> {
                     List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -181,7 +181,7 @@ public class OrderServiceImpl implements OrderService {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new RuntimeException("매장을 찾을 수 없습니다: " + storeId));
         
-        List<Order> orders = orderRepository.findByStore(store);
+        List<Order> orders = reservationOrderRepository.findByStore(store);
         return orders.stream()
                 .map(order -> {
                     List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -193,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
         @Override
     @Transactional(readOnly = true)
     public List<OrderResponse> getOrdersByStatus(OrderStatus status) { 
-        List<Order> orders = orderRepository.findByStatus(status);
+        List<Order> orders = reservationOrderRepository.findByStatus(status);
         return orders.stream()
                 .map(order -> {
                     List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -205,7 +205,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderResponse> getOrdersByPickupTimeBetween(LocalDateTime start, LocalDateTime end) { 
-        List<Order> orders = orderRepository.findByPickupTimeBetween(start, end);
+        List<Order> orders = reservationOrderRepository.findByPickupTimeBetween(start, end);
         return orders.stream()
                 .map(order -> {
                     List<OrderItem> orderItems = orderItemRepository.findByOrder(order);
@@ -217,12 +217,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderResponse updateOrderStatus(Long id, OrderStatusUpdateRequest statusRequest) {   
-        Order order = orderRepository.findById(id)
+        Order order = reservationOrderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
         // 주문 상태 변경
         order.setStatus(statusRequest.getStatus());
-        Order updatedOrder = orderRepository.save(order);
+        Order updatedOrder = reservationOrderRepository.save(order);
         
         List<OrderItem> orderItems = orderItemRepository.findByOrder(updatedOrder);
         return convertToOrderResponse(updatedOrder, orderItems);
@@ -231,7 +231,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void cancelOrder(Long id) {  
-        Order order = orderRepository.findById(id)
+        Order order = reservationOrderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다: " + id));
         
         // 이미 취소된 주문인지 확인
@@ -246,7 +246,7 @@ public class OrderServiceImpl implements OrderService {
         
         // 주문 상태 취소로 변경
         order.setStatus(OrderStatus.CANCELED);
-        orderRepository.save(order);
+        reservationOrderRepository.save(order);
     }
     
     // 주문번호 생성 메서드

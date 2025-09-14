@@ -7,7 +7,7 @@ import com.burgerking.membership.domain.Order;
 import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
-import com.burgerking.membership.repository.OrderRepository;
+import com.burgerking.membership.repository.MembershipOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class MembershipService {
     
     private final MembershipRepository membershipRepository;
     private final MonthlyOrderRepository monthlyOrderRepository;
-    private final OrderRepository orderRepository; // Order 엔티티 저장
+    private final MembershipOrderRepository membershipOrderRepository; // Order 엔티티 저장
     private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
     private final org.springframework.batch.core.Job membershipGradeJob;
 
@@ -62,7 +62,7 @@ public class MembershipService {
             .orderNumber(orderNumber)
             .orderAmount(orderAmount)
             .build();
-        orderRepository.save(newOrder);
+        membershipOrderRepository.save(newOrder);
 
 
         // 2. 해당 월의 MonthlyOrder 업데이트 또는 생성

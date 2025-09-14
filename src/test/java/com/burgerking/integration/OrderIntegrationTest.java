@@ -4,7 +4,7 @@ import com.burgerking.reservation.domain.Menu;
 import com.burgerking.reservation.domain.Store;
 import com.burgerking.reservation.domain.enums.OrderStatus;
 import com.burgerking.reservation.repository.MenuRepository;
-import com.burgerking.reservation.repository.OrderRepository;
+import com.burgerking.reservation.repository.ReservationOrderRepository;
 import com.burgerking.reservation.repository.StoreRepository;
 import com.burgerking.reservation.web.dto.OrderRequest;
 import com.burgerking.reservation.web.dto.OrderResponse;
@@ -43,7 +43,7 @@ public class OrderIntegrationTest {
     private MenuRepository menuRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private ReservationOrderRepository reservationOrderRepository;
 
     private Store testStore;
     private Menu testMenu;
@@ -66,7 +66,7 @@ public class OrderIntegrationTest {
     @AfterEach
     void tearDown() {
         // 각 테스트 실행 후 데이터베이스를 초기화합니다.
-        orderRepository.deleteAll();
+        reservationOrderRepository.deleteAll();
         menuRepository.deleteAll();
         storeRepository.deleteAll();
     }

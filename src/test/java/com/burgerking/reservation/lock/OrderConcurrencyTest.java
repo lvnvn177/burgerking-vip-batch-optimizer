@@ -3,7 +3,7 @@ package com.burgerking.reservation.lock;
 import com.burgerking.reservation.domain.Menu;
 import com.burgerking.reservation.domain.Store;
 import com.burgerking.reservation.repository.MenuRepository;
-import com.burgerking.reservation.repository.OrderRepository;
+import com.burgerking.reservation.repository.ReservationOrderRepository;
 import com.burgerking.reservation.repository.StoreRepository;
 import com.burgerking.reservation.service.OrderService;
 import com.burgerking.reservation.web.dto.OrderRequest;
@@ -44,14 +44,14 @@ public class OrderConcurrencyTest {
     private MenuRepository menuRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private ReservationOrderRepository reservationOrderRepository;
 
     private Store testStore;
     private Menu testMenu;
 
     @BeforeEach
     void setUp() {
-        orderRepository.deleteAllInBatch();
+        reservationOrderRepository.deleteAllInBatch();
         menuRepository.deleteAllInBatch();
         storeRepository.deleteAllInBatch();
 
@@ -125,7 +125,7 @@ public class OrderConcurrencyTest {
         assertEquals(numberOfThreads, successCount.get());
         
         // 생성된 주문 수 확인
-        long orderCount = orderRepository.count();
+        long orderCount = reservationOrderRepository.count();
         assertEquals(numberOfThreads, orderCount);
     }
 }

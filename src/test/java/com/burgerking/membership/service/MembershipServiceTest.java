@@ -7,7 +7,7 @@ import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.exception.MembershipException;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
-import com.burgerking.membership.repository.OrderRepository;
+import com.burgerking.membership.repository.MembershipOrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ public class MembershipServiceTest {
     private MonthlyOrderRepository monthlyOrderRepository;
 
     @Mock
-    private OrderRepository orderRepository;
+    private MembershipOrderRepository membershipOrderRepository;
 
     @InjectMocks
     private MembershipService membershipService;
@@ -109,7 +109,7 @@ public class MembershipServiceTest {
         membershipService.processNewOrder(testUserId, orderNumber, orderAmount);
 
         // then
-        verify(orderRepository).save(any());
+        verify(membershipOrderRepository).save(any());
         verify(monthlyOrderRepository).findByUserIdAndYearMonth(testUserId, currenYearMonth);
         verify(monthlyOrderRepository).save(any(MonthlyOrder.class));
     }

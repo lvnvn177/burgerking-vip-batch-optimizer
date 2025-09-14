@@ -5,7 +5,7 @@ import com.burgerking.membership.domain.MonthlyOrder;
 import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
-import com.burgerking.membership.repository.OrderRepository;
+import com.burgerking.membership.repository.MembershipOrderRepository;
 import com.burgerking.membership.web.dto.OrderProcessRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
@@ -52,7 +52,7 @@ public class MembershipIntegrationTest {
     private MonthlyOrderRepository monthlyOrderRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private MembershipOrderRepository membershipOrderRepository;
 
     private Long testUserId;
 
@@ -71,7 +71,7 @@ public class MembershipIntegrationTest {
      * 각 테스트 실행 전에 데이터베이스를 초기화합니다.
      */
     private void cleanupTestData() {
-        orderRepository.deleteAllInBatch();
+        membershipOrderRepository.deleteAllInBatch();
         monthlyOrderRepository.deleteAllInBatch();
         membershipRepository.deleteAllInBatch();
     }
