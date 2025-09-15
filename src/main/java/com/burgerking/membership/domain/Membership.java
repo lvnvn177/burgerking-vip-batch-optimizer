@@ -36,11 +36,9 @@ public class Membership {
     private LocalDateTime nextEvaluationDate; // 다음 등급 평가 예정일 (매월 1일 09:00 AM)
 
     @Column(name = "created_at", nullable = false)
-    @CreationTimestamp
     private LocalDateTime createdAt; // 생성일
 
     @Column(name = "updated_at", nullable = false)
-    @UpdateTimestamp
     private LocalDateTime updatedAt; // 수정일
 
     @Builder
@@ -59,8 +57,8 @@ public class Membership {
                 .withSecond(0)
                 .withNano(0);
         
-        // this.createdAt = now;
-        // this.updatedAt = now;
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     /**
