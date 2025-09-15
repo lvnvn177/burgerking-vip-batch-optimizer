@@ -2,6 +2,7 @@ package com.burgerking.membership.web;
 
 import com.burgerking.membership.domain.Membership;
 import com.burgerking.membership.service.MembershipService;
+import com.burgerking.membership.util.MembershipTestDataGenerator;
 import com.burgerking.membership.web.dto.MembershipResponse;
 import com.burgerking.membership.web.dto.OrderProcessRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class MembershipController {
     
     private final MembershipService membershipService;
+    private final MembershipTestDataGenerator membershipTestDataGenerator;
 
     /**
      * 특정 사용자의 멤버십 정보를 조회합니다.
@@ -84,5 +86,21 @@ public class MembershipController {
     public ResponseEntity<String> runOptimizedBatch() {
         membershipService.runOptimizedBatch();
         return ResponseEntity.ok("Optimized batch job started.");
+    }
+    /**
+     * (테스트용) 고객 및 주문 더미 데이터를 생성합니다.
+     * POST /api/memberships/generate-test-data
+     */
+    @Operation(summary = "(테스트용) 고객 및 주문 더미 데이터 생성", description = "성능 테스트를 위한 고객 및 주문 더미 데이터를 생성합니다.")
+    @ApiResponse(responseCode = "200", description = "더미 데이터 생성 성공")
+    @PostMapping("/generate-test-data")
+    public ResponseEntity<String> generateTestData(
+        @Parameter(name = "numberOfMembers", description = "생성할 고객 수", required = true, example = "100")
+        @RequestParam int numberOfMembers,
+        @Parameter(name = "maxOrdersPerMember", description = "한 고객당 최대 주문 수", required = true, example = "50")
+        @RequestParam int maxOrdersPerMember
+    ) {
+        membershipTestDataGenerator.generateMembersAndOrders(numberOfMembers, maxOrdersPerMember);
+        return ResponseEntity.status(HttpStatus.OK).body(numberOfMembers + "명의 고객과 최대 " + maxOrdersPerMember + "건의 주문 더미 데이터가 생성되었습니다.");
     }
 }
