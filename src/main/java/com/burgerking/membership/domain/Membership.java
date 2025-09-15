@@ -19,7 +19,7 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 멤버십 ID
 
-    @Column(nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;        // 사용자 ID
 
     @Enumerated(EnumType.STRING)
