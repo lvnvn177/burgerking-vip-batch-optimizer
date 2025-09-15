@@ -9,6 +9,8 @@ import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
 import com.burgerking.membership.repository.MembershipOrderRepository;
 import com.burgerking.membership.util.MembershipTestDataGenerator;
+
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,8 @@ public class MembershipService {
     private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
     private final org.springframework.batch.core.Job membershipGradeJob;
     private final MembershipTestDataGenerator membershipTestDataGenerator;
+
+    private final EntityManager entityManager;
 
     /**
      * 새로운 사용자 멤버십을 생성하거나 기존 멤버십을 조회합니다.
@@ -176,5 +180,6 @@ public class MembershipService {
     @Transactional
     public void generateTestData(int numberOfMembers, int maxOrdersPerMember) {
         membershipTestDataGenerator.generateMembersAndOrders(numberOfMembers, maxOrdersPerMember);
+        entityManager.flush();
     }
 }
