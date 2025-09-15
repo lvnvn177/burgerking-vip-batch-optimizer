@@ -7,11 +7,20 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class OpenApiConfig {
+
+
+    @Value("${SERVER_HOST}")
+    private String serverHost;
+
+    @Value("${SERVER_PORT}")
+    private String serverPort;
     @Bean
     public OpenAPI openAPI() {
        // API 기본 정보 설정
@@ -34,7 +43,7 @@ public class OpenApiConfig {
 
        // Swagger UI 설정 및 보안 추가
        return new OpenAPI()
-          .addServersItem(new Server().url("http://localhost:8080"))  // 추가적인 서버 URL 설정 가능
+          .addServersItem(new Server().url("http://" + serverHost + ":" + serverPort))  // 추가적인 서버 URL 설정 가능
           .components(components)
           .info(info)
           .addSecurityItem(securityRequirement);

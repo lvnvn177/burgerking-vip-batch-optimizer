@@ -45,3 +45,7 @@ Doc/
 *.db_data/
 
 Test.java
+
+
+# .env
+src/main/resources/properties/env.properties

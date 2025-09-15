@@ -8,6 +8,7 @@ import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.MonthlyOrderRepository;
 import com.burgerking.membership.repository.MembershipOrderRepository;
+import com.burgerking.membership.util.MembershipTestDataGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ public class MembershipService {
     private final MembershipOrderRepository membershipOrderRepository; // Order 엔티티 저장
     private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
     private final org.springframework.batch.core.Job membershipGradeJob;
+    private final MembershipTestDataGenerator membershipTestDataGenerator;
 
     /**
      * 새로운 사용자 멤버십을 생성하거나 기존 멤버십을 조회합니다.
@@ -165,5 +167,14 @@ public class MembershipService {
             System.err.println("Error launching optimized batch job: " + e.getMessage());
             throw new RuntimeException("Failed to launch optimized batch job", e);
         }
+    }
+    /**
+     * (테스트용) 고객 및 주문 더미 데이터를 생성합니다.
+     * @param numberOfMembers 생성할 고객 수
+     * @param maxOrdersPerMember 한 고객당 최대 주문 수
+     */
+    @Transactional
+    public void generateTestData(int numberOfMembers, int maxOrdersPerMember) {
+        membershipTestDataGenerator.generateMembersAndOrders(numberOfMembers, maxOrdersPerMember);
     }
 }
