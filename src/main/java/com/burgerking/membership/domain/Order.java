@@ -18,19 +18,19 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                    // 주문 ID
 
-    @Column(nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;                // 사용자 ID
 
-    @Column(nullable = false)
+    @Column(name = "order_number", nullable = false)
     private String orderNumber;         // 주문 번호
 
-    @Column(nullable = false)
+    @Column(name = "order_amount", nullable = false)
     private Integer orderAmount;        // 주문 금액
 
-    @Column(nullable = false)
+    @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;    // 주문 일시
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;    // 생성일
     
     @Builder
