@@ -25,8 +25,14 @@ spring:
       enabled: false
     jdbc:
       initialize-schema: always
+  datasource: 
+      url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: user
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
 
----
+--- 
+
 # 디버그 로깅 
 logging:
   level:
@@ -34,7 +40,8 @@ logging:
     '[org.hibernate.SQL]': DEBUG
     '[org.hibernate.type.descriptor.sql.BasicBinder]': TRACE
 
----
+--- 
+
 # Swagger 문서 
 springdoc:
   packages-to-scan: com.burgerking
@@ -46,8 +53,9 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
 
----
-spring:
+--- 
+
+spring: # 이 spring 블록은 local-dev 프로파일에 대한 추가 설정 (ddl-auto 등)만 포함
   config:
     activate:
       on-profile: local-dev
@@ -59,13 +67,8 @@ spring:
   sql:
     init:
       mode: never # 데이터베이스 초기화 비활성화
-  datasource:
-      url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      username: user
-      password: password
-      driver-class-name: com.mysql.cj.jdbc.Driver
 
----
+--- 
 
 server:
   address: 0.0.0.0
