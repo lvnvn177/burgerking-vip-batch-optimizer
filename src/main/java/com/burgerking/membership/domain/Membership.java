@@ -66,9 +66,9 @@ public class Membership {
      * @return 등급이 변경되었는지 여부
      */
     public boolean updateGrade(MembershipGrade newGrade, LocalDateTime evaluationTime) {
-        boolean isGradeChanged = !this.grade.equals(newGrade);
+        boolean isGradeChanged = !this.grade.equals(newGrade); 
         
-        if (isGradeChanged) {
+        if (isGradeChanged) { 
             this.grade = newGrade;
         }
         

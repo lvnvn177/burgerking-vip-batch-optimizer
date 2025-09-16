@@ -26,9 +26,9 @@ spring:
       initialize-schema: always
   datasource:
     membership:
-      url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      username: user
-      password: zhtmahtm@39
+      url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      username: lvnvn
+      password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 ---
