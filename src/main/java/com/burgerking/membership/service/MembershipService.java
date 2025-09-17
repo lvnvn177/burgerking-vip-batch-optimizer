@@ -7,7 +7,7 @@ import com.burgerking.membership.domain.Order;
 import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
 import com.burgerking.membership.repository.SumOrderRepository;
-import com.burgerking.membership.repository.MembershipOrderRepository;
+import com.burgerking.membership.repository.OrderRepository;
 import com.burgerking.membership.util.MembershipTestDataGenerator;
 
 import jakarta.persistence.EntityManager;
@@ -26,7 +26,7 @@ public class MembershipService {
     
     private final MembershipRepository membershipRepository;
     private final SumOrderRepository sumOrderRepository;
-    private final MembershipOrderRepository membershipOrderRepository; // Order 엔티티 저장
+    private final OrderRepository membershipOrderRepository; // Order 엔티티 저장
     private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
     private final org.springframework.batch.core.Job membershipGradeJob;
     private final MembershipTestDataGenerator membershipTestDataGenerator;
@@ -54,7 +54,7 @@ public class MembershipService {
     /**
      * 주문이 발생했을 때 멤버십 시스템 관련 데이터를 업데이트합니다.
      * - Order 엔티티를 저장합니다.
-     * - 해당 월의 MonthlyOrder를 업데이트하거나 생성합니다.
+     * - 해당 누적 SumOrder를 업데이트하거나 생성합니다.
      * @param userId 사용자 ID
      * @param orderNumber 주문 번호
      * @param orderAmount 주문 금액

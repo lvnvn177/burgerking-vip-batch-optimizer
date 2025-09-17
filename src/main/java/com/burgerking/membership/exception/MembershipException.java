@@ -42,20 +42,6 @@ public class MembershipException extends BusinessException {
     }
 
     /**
-     * '월별 주문 내역 없음' 예외를 생성합니다.
-     *
-     * @param userId    사용자 ID
-     * @param yearMonth 주문 내역을 찾지 못한 년월
-     * @return MembershipException
-     */
-    public static MembershipException monthlyOrderNotFound(Long userId, String yearMonth) {
-        return new MembershipException(
-            MembershipErrorCode.MONTHLY_ORDER_NOT_FOUND,
-            "사용자 ID: " + userId + "의 " + yearMonth + " 월 주문 내역을 찾을 수 없습니다."
-        );
-    }
-
-    /**
      * '잘못된 등급 평가' 예외를 생성합니다.
      *
      * @return MembershipException
