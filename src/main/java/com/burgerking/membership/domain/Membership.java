@@ -27,12 +27,6 @@ public class Membership {
     @Column(name = "grade", nullable = false)
     private MembershipGrade grade; // 멤버십 등급
 
-    @Column(name = "last_evaluation_date", nullable = false)
-    private LocalDateTime lastEvaluationDate; // 마지막 등급 평가일
-
-    @Column(name = "next_evaluation_date", nullable = false)
-    private LocalDateTime nextEvaluationDate; // 다음 등급 평가 예정일 (매월 1일 09:00 AM)
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt; // 생성일
 
@@ -45,16 +39,7 @@ public class Membership {
         this.grade = grade;
         
         LocalDateTime now = LocalDateTime.now();
-        this.lastEvaluationDate = now;
-        
-        // 초기 설정: 다음 평가일은 다음 달 1일 오전 9시
-        this.nextEvaluationDate = now.plusMonths(1)
-                .withDayOfMonth(1)
-                .withHour(9)
-                .withMinute(0)
-                .withSecond(0)
-                .withNano(0);
-        
+       
         this.createdAt = now;
         this.updatedAt = now;
     }
@@ -71,14 +56,7 @@ public class Membership {
         if (isGradeChanged) { 
             this.grade = newGrade;
         }
-        
-        this.lastEvaluationDate = evaluationTime;
-        this.nextEvaluationDate = evaluationTime.plusMonths(1)
-                .withDayOfMonth(1)
-                .withHour(9)
-                .withMinute(0)
-                .withSecond(0)
-                .withNano(0);
+
         this.updatedAt = evaluationTime;
 
         return isGradeChanged;

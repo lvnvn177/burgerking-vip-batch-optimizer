@@ -1,16 +1,15 @@
 package com.burgerking.membership.batch.processor;
 
 import com.burgerking.membership.domain.Membership;
-import com.burgerking.membership.domain.MonthlyOrder;
+import com.burgerking.membership.domain.SumOrder;
 import com.burgerking.membership.domain.enums.MembershipGrade;
-import com.burgerking.membership.repository.MonthlyOrderRepository;
+import com.burgerking.membership.repository.SumOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.util.List;
+
 
 /**
  * 멤버십 등급 평가를 위한 ItemProcessor
@@ -20,25 +19,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MembershipGradeProcessor implements ItemProcessor<Membership, Membership> {
 
-    private final MonthlyOrderRepository monthlyOrderRepository;
-    private final YearMonth startMonth;
-    private final YearMonth endMonth;
+    private final SumOrderRepository sumOrderRepository;
+
 
     @Override
     public Membership process(@SuppressWarnings("null") Membership membership) throws Exception {
-        // 해당 사용자의 3개월치 주문 내역 조회
-        List<MonthlyOrder> userMonthlyOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
-                membership.getUserId(), startMonth, endMonth);
+        // 해당 사용자의 누적 주문 내역 조회
+        SumOrder sumOrder = sumOrderRepository.findByUserId(
+                membership.getUserId());
+        
+        Integer orderAmount = sumOrder.getTotalAmount();
 
-        // 3개월 누적 금액 계산
-        int total3MonthAmount = userMonthlyOrders.stream()
-                .mapToInt(MonthlyOrder::getTotalAmount)
-                .sum();
+        
 
-        log.info("사용자 ID: {}, 3개월 누적 금액: {}", membership.getUserId(), total3MonthAmount);
+        log.info("사용자 ID: {}, 주문 누적 금액: {}", membership.getUserId(), sumOrder);
 
         // 누적 금액에 따른 등급 계산
-        MembershipGrade newGrade = MembershipGrade.evaluateGrade(total3MonthAmount);
+        MembershipGrade newGrade = MembershipGrade.evaluateGrade(orderAmount);
 
         // 멤버십 등급 갱신
         LocalDateTime evaluationTime = LocalDateTime.now();

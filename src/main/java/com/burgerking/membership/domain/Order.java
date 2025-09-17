@@ -44,9 +44,9 @@ public class Order {
     
     /**
      * 주문 정보를 이용해 해당 월의 MonthlyOrder 데이터를 업데이트합니다.
-     * @param monthlyOrder 업데이트할 월별 주문 집계 정보
+     * @param SumOrder 업데이트할 월별 주문 집계 정보
      */
-    public void updateMonthlyOrder(MonthlyOrder monthlyOrder) {
-        monthlyOrder.addOrder(this.orderAmount);
+    public void updateMonthlyOrder(SumOrder SumOrder) {
+       SumOrder.addOrder(this.orderAmount);
     }
 }

@@ -2,11 +2,11 @@ package com.burgerking.membership.service;
 
 
 import com.burgerking.membership.domain.Membership;
-import com.burgerking.membership.domain.MonthlyOrder;
+import com.burgerking.membership.domain.SumOrder;
 import com.burgerking.membership.domain.Order;
 import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
-import com.burgerking.membership.repository.MonthlyOrderRepository;
+import com.burgerking.membership.repository.SumOrderRepository;
 import com.burgerking.membership.repository.MembershipOrderRepository;
 import com.burgerking.membership.util.MembershipTestDataGenerator;
 
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ import java.util.Optional;
 public class MembershipService {
     
     private final MembershipRepository membershipRepository;
-    private final MonthlyOrderRepository monthlyOrderRepository;
+    private final SumOrderRepository sumOrderRepository;
     private final MembershipOrderRepository membershipOrderRepository; // Order 엔티티 저장
     private final org.springframework.batch.core.launch.JobLauncher jobLauncher;
     private final org.springframework.batch.core.Job membershipGradeJob;
@@ -71,17 +70,13 @@ public class MembershipService {
         membershipOrderRepository.save(newOrder);
 
 
-        // 2. 해당 월의 MonthlyOrder 업데이트 또는 생성
-        YearMonth currentYearMonth = YearMonth.now(); // 현재 연월
+        // 2. SumOrder 업데이트 또는 생성
+  
 
-        MonthlyOrder monthlyOrder = monthlyOrderRepository.findByUserIdAndYearMonth(userId, currentYearMonth)
-            .orElseGet( () -> MonthlyOrder.builder()
-                .userId(userId)
-                .yearMonth(currentYearMonth)
-                .build());
-        
-        monthlyOrder.addOrder(orderAmount); // 월별 주문 금액 및 횟수 누적 
-        monthlyOrderRepository.save(monthlyOrder); // 변경된 MonthlyOrder 저장 
+        SumOrder sumOrder = sumOrderRepository.findByUserId(userId);
+
+        sumOrder.addOrder(orderAmount); // 누적 주문 금액 및 횟수 누적 
+        sumOrderRepository.save(sumOrder); // 변경된 SumOrder 저장 
     }
 
     /**
@@ -96,19 +91,15 @@ public class MembershipService {
         List<Membership> allMemberships = membershipRepository.findAll();
 
         for (Membership membership : allMemberships) {
-            // 직전 3개월의 월별 주문 금액을 조회하여 합산
-            YearMonth endMonth = YearMonth.now().minusMonths(1); // 직전 달
-            YearMonth startMonth = endMonth.minusMonths(2); // 직전 달로부터 3개월 전
+            // 누적 주문 금액을 조회하여 합산
 
-            List<MonthlyOrder> last3MonthsOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
-                membership.getUserId(), startMonth, endMonth);
+            SumOrder sumOrders = sumOrderRepository.findByUserId(
+                membership.getUserId());
             
-            int total3MonthAmount = last3MonthsOrders.stream()
-                .mapToInt(MonthlyOrder::getTotalAmount)
-                .sum();
+            int orderAmount = sumOrders.getTotalAmount();
 
             // 누적 금액을 기반으로 새로운 등급 계산
-            MembershipGrade newGrade = MembershipGrade.evaluateGrade(total3MonthAmount);
+            MembershipGrade newGrade = MembershipGrade.evaluateGrade(orderAmount);
             
             
             // 멤버쉽 등급 갱신 (변경이 없어도 lastEvaluationDate 등은 업데이트)
@@ -138,17 +129,13 @@ public class MembershipService {
         List<Membership> allMemberships = membershipRepository.findAll();
 
         for (Membership membership : allMemberships) {
-            YearMonth endMonth = YearMonth.now().minusMonths(1);
-            YearMonth startMonth = endMonth.minusMonths(2);
-
-            List<MonthlyOrder> last3MonthsOrders = monthlyOrderRepository.findByUserIdAndYearMonthBetweenOrderByYearMonthAsc(
-                membership.getUserId(), startMonth, endMonth);
+          
+            SumOrder sumOrders = sumOrderRepository.findByUserId(
+                membership.getUserId());
             
-            int total3MonthAmount = last3MonthsOrders.stream()
-                .mapToInt(MonthlyOrder::getTotalAmount)
-                .sum();
+            int totalAmount = sumOrders.getTotalAmount();
 
-            MembershipGrade newGrade = MembershipGrade.evaluateGrade(total3MonthAmount);
+            MembershipGrade newGrade = MembershipGrade.evaluateGrade(totalAmount);
             
             membership.updateGrade(newGrade, evaluationTime);
             membershipRepository.save(membership);

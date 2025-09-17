@@ -4,7 +4,7 @@ import com.burgerking.membership.batch.processor.MembershipGradeProcessor;
 import com.burgerking.membership.batch.writer.MembershipGradeWriter;
 import com.burgerking.membership.domain.Membership;
 import com.burgerking.membership.repository.MembershipRepository;
-import com.burgerking.membership.repository.MonthlyOrderRepository;
+import com.burgerking.membership.repository.SumOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -24,7 +24,7 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import jakarta.persistence.EntityManagerFactory;
-import java.time.YearMonth;
+
 
 
 @Slf4j
@@ -37,7 +37,7 @@ public class MembershipGradeBatchConfig {
     private final PlatformTransactionManager transactionManager;
     private final EntityManagerFactory entityManagerFactory;
     private final MembershipRepository membershipRepository;
-    private final MonthlyOrderRepository monthlyOrderRepository;
+    private final SumOrderRepository sumOrderRepository;
 
     private static final int CHUNK_SIZE = 100;
 
@@ -47,12 +47,12 @@ public class MembershipGradeBatchConfig {
             @Qualifier("membershipTransactionManager") PlatformTransactionManager transactionManager,
             @Qualifier("membershipEntityManagerFactory") EntityManagerFactory entityManagerFactory,
             MembershipRepository membershipRepository,
-            MonthlyOrderRepository monthlyOrderRepository) {
+            SumOrderRepository monthlyOrderRepository) {
         this.jobRepository = jobRepository;
         this.transactionManager = transactionManager;
         this.entityManagerFactory = entityManagerFactory;
         this.membershipRepository = membershipRepository;
-        this.monthlyOrderRepository = monthlyOrderRepository;
+        this.sumOrderRepository = monthlyOrderRepository;
     }
 
     /**
@@ -72,20 +72,18 @@ public class MembershipGradeBatchConfig {
     /**
      * 멤버십 등급을 평가하는 Step을 정의합니다.
      * - Reader: 모든 멤버십 정보를 페이징하여 읽어옵니다.
-     * - Processor: 각 멤버십에 대해 최근 3개월 주문 금액을 계산하고 등급을 평가합니다.
+     * - Processor: 각 멤버십에 대해 누적 주문 금액을 계산하고 등급을 평가합니다.
      * - Writer: 변경된 멤버십 정보를 DB에 저장합니다.
      *
      * @return Step
      */
     @Bean
     public Step membershipGradeStep() {
-        YearMonth endMonth = YearMonth.now().minusMonths(1);
-        YearMonth startMonth = endMonth.minusMonths(2);
-
+   
         return new StepBuilder("membershipGradeStep", jobRepository)
                 .<Membership, Membership>chunk(CHUNK_SIZE, transactionManager)
                 .reader(membershipItemReader())
-                .processor(new MembershipGradeProcessor(monthlyOrderRepository, startMonth, endMonth))
+                .processor(new MembershipGradeProcessor(sumOrderRepository))
                 .writer(new MembershipGradeWriter(membershipRepository))
                 .build();
     }
