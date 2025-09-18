@@ -23,7 +23,7 @@ spring:
     job:
       enabled: false
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
   datasource:
     membership:
       url: jdbc:mysql://localhost:3306/membership_db?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true

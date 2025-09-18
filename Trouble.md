@@ -1,29 +1,105 @@
-pGradeBatchConfig.membershipGradeStep()() - 실행 시간: 13ms
-2025-09-18T20:35:03.315+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
-2025-09-18T20:35:03.316+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.membership.batch.config.MembershipGradeBatchConfig.MembershipGradeBatchConfig.membershipGradeJob(..)()
-2025-09-18T20:35:03.318+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.membership.batch.config.MembershipGradeBatchConfig.MembershipGradeBatchConfig.membershipGradeJob(..)() - 실행 시간: 2ms
-2025-09-18T20:35:03.319+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
-2025-09-18T20:35:03.331+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.BatchConfig.BatchConfig.jobExplorer(..)()
-2025-09-18T20:35:03.333+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.BatchConfig.BatchConfig.jobExplorer(..)() - 실행 시간: 2ms
-2025-09-18T20:35:03.334+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.BatchConfig.BatchConfig.jobOperator(..)()
-2025-09-18T20:35:03.335+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.BatchConfig.BatchConfig.jobOperator(..)() - 실행 시간: 1ms
-2025-09-18T20:35:03.338+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.membershipApi()()
-2025-09-18T20:35:03.341+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.membershipApi()() - 실행 시간: 3ms
-2025-09-18T20:35:03.409+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.WebConfig.WebConfig.addCorsMappings(..)()
-2025-09-18T20:35:03.410+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.WebConfig.WebConfig.addCorsMappings(..)() - 실행 시간: 1ms
-2025-09-18T20:35:03.567+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.openAPI()()
-2025-09-18T20:35:03.568+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.openAPI()() - 실행 시간: 1ms
-2025-09-18T20:35:03.571+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.openAPI()()
-2025-09-18T20:35:03.571+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.config.OpenApiConfig.OpenApiConfig.openAPI()() - 실행 시간: 0ms
-2025-09-18T20:35:03.645+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-09-18T20:35:03.663+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-09-18T20:35:03.669+09:00  INFO 12965 --- [vip-batch-optimizer] [  restartedMain] c.b.VipBatchOptimizerApplication         : Started VipBatchOptimizerApplication in 2.436 seconds (process running for 2.606)
-2025-09-18T20:35:08.857+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-18T20:35:08.858+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-09-18T20:35:08.859+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-09-18T20:35:08.877+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)()
-2025-09-18T20:35:08.880+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)() - 실행 시간: 3ms
-2025-09-18T20:35:08.910+09:00  WARN 12965 --- [vip-batch-optimizer] [0.0-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/memberships/adjust-batch-non-optimized.]
-2025-09-18T20:35:08.913+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-2] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)()
-2025-09-18T20:35:08.913+09:00  INFO 12965 --- [vip-batch-optimizer] [0.0-8080-exec-2] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)() - 실행 시간: 0ms
-2025-09-18T20:35:08.914+09:00  WARN 12965 --- [vip-batch-optimizer] [0.0-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/memberships/adjust-batch.]
+2025-09-18T21:29:37.548+09:00 DEBUG 26859 --- [vip-batch-optimizer] [0.0-8080-exec-2] org.hibernate.SQL                        : 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2025-09-18T21:29:37.548+09:00 DEBUG 26859 --- [vip-batch-optimizer] [0.0-8080-exec-2] org.hibernate.SQL                        : 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2025-09-18T21:29:37.548+09:00 DEBUG 26859 --- [vip-batch-optimizer] [0.0-8080-exec-2] org.hibernate.SQL                        : 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2025-09-18T21:29:37.548+09:00 DEBUG 26859 --- [vip-batch-optimizer] [0.0-8080-exec-2] org.hibernate.SQL                        : 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    update
+        members 
+    set
+        created_at=?,
+        grade=?,
+        last_evaluation_date=?,
+        next_evaluation_date=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2025-09-18T21:29:37.550+09:00  INFO 26859 --- [vip-batch-optimizer] [0.0-8080-exec-2] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.membership.web.MembershipController.MembershipController.runNonOptimizedBatch()() - 실행 시간: 896ms
+2025-09-18T21:29:37.556+09:00  INFO 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.membership.web.MembershipController.MembershipController.runOptimizedBatch()()
+2025-09-18T21:29:37.556+09:00  INFO 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.membership.service.MembershipService.MembershipService.runOptimizedBatch()()
+Error launching optimized batch job: Existing transaction detected in JobRepository. Please fix this and try again (e.g. remove @Transactional annotations from client).
+2025-09-18T21:29:37.564+09:00 ERROR 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [EXCEPTION] com.burgerking.membership.service.MembershipService.MembershipService.runOptimizedBatch()() - 예외: Failed to launch optimized batch job - 실행 시간: 8ms
+2025-09-18T21:29:37.564+09:00 ERROR 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [EXCEPTION] com.burgerking.membership.web.MembershipController.MembershipController.runOptimizedBatch()() - 예외: Failed to launch optimized batch job - 실행 시간: 8ms
+2025-09-18T21:29:37.565+09:00  INFO 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [START] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)()
+2025-09-18T21:29:37.566+09:00  INFO 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] c.burgerking.common.aop.LoggingAspect    : [END] com.burgerking.common.exception.GlobalExceptionHandler.GlobalExceptionHandler.handleGeneralException(..)() - 실행 시간: 1ms
+2025-09-18T21:29:37.587+09:00  WARN 26859 --- [vip-batch-optimizer] [0.0-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Failed to launch optimized batch job]
