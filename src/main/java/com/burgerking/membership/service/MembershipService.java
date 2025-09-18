@@ -80,35 +80,6 @@ public class MembershipService {
     }
 
     /**
-     * 매월 1일 오전 9시에 호출될 스케줄러 메서드 (혹은 수동 호출).
-     * 모든 사용자의 멤버십 등급을 재평가하고 갱신합니다.
-     */
-    @Transactional
-    public void evaluateAndRenewAllMembershipGrades() {
-        LocalDateTime evaluationTime = LocalDateTime.now(); // 등급 평가 시점
-
-        // 모든 멤버쉽을 순회하며 등급을 재평가
-        List<Membership> allMemberships = membershipRepository.findAll();
-
-        for (Membership membership : allMemberships) {
-            // 누적 주문 금액을 조회하여 합산
-
-            SumOrder sumOrders = sumOrderRepository.findByUserId(
-                membership.getUserId());
-            
-            int orderAmount = sumOrders.getTotalAmount();
-
-            // 누적 금액을 기반으로 새로운 등급 계산
-            MembershipGrade newGrade = MembershipGrade.evaluateGrade(orderAmount);
-            
-            
-            // 멤버쉽 등급 갱신 (변경이 없어도 lastEvaluationDate 등은 업데이트)
-            membership.updateGrade(newGrade, evaluationTime);
-            membershipRepository.save(membership); // 변경된 멤버쉽 저장
-        }
-    }
-
-    /**
      * 특정 사용자의 현재 멤버십 정보를 조회합니다.
      * @param userId 사용자 ID
      * @return 멤버십 엔티티 (Optional)
@@ -159,6 +130,7 @@ public class MembershipService {
             throw new RuntimeException("Failed to launch optimized batch job", e);
         }
     }
+    
     /**
      * (테스트용) 고객 및 주문 더미 데이터를 생성합니다.
      * @param numberOfMembers 생성할 고객 수

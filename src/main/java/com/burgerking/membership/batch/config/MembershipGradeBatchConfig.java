@@ -47,12 +47,12 @@ public class MembershipGradeBatchConfig {
             @Qualifier("membershipTransactionManager") PlatformTransactionManager transactionManager,
             @Qualifier("membershipEntityManagerFactory") EntityManagerFactory entityManagerFactory,
             MembershipRepository membershipRepository,
-            SumOrderRepository monthlyOrderRepository) {
+            SumOrderRepository sumOrderRepository) {
         this.jobRepository = jobRepository;
         this.transactionManager = transactionManager;
         this.entityManagerFactory = entityManagerFactory;
         this.membershipRepository = membershipRepository;
-        this.sumOrderRepository = monthlyOrderRepository;
+        this.sumOrderRepository = sumOrderRepository;
     }
 
     /**

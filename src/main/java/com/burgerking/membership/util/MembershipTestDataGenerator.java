@@ -2,9 +2,12 @@ package com.burgerking.membership.util;
 
 import com.burgerking.membership.domain.Membership;
 import com.burgerking.membership.domain.Order;
+import com.burgerking.membership.domain.SumOrder;
 import com.burgerking.membership.domain.enums.MembershipGrade;
 import com.burgerking.membership.repository.MembershipRepository;
-import com.burgerking.membership.repository.MembershipOrderRepository;
+import com.burgerking.membership.repository.OrderRepository;
+import com.burgerking.membership.repository.SumOrderRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +22,8 @@ import java.util.UUID;
 public class MembershipTestDataGenerator {
 
     private final MembershipRepository membershipRepository;
-    private final MembershipOrderRepository membershipOrderRepository;
+    private final OrderRepository membershipOrderRepository;
+    private final SumOrderRepository sumOrderRepository;
     private final Random random = new Random();
 
     @Transactional
@@ -31,7 +35,7 @@ public class MembershipTestDataGenerator {
             Membership membership = Membership.builder()
                     .userId(userId)
                     .grade(grade)
-                    .build(); // lastEvaluationDate, nextEvaluationDate, createdAt, updatedAt은 생성자에서 자동 설정
+                    .build(); // createdAt, updatedAt은 생성자에서 자동 설정
             members.add(membership);
         }
         membershipRepository.saveAll(members);
@@ -40,9 +44,18 @@ public class MembershipTestDataGenerator {
         for (Membership member : members) {
             int numOrders = random.nextInt(maxOrdersPerMember) + 1; // 1개 이상 주문
             for (int i = 0; i < numOrders; i++) {
-                orders.add(createRandomOrder(member.getUserId()));
+                Order newOrder = createRandomOrder(member.getUserId());
+                orders.add(newOrder);
+
+                SumOrder sumOrder = sumOrderRepository.findByUserId(member.getUserId());
+                if (sumOrder == null) {
+                    sumOrder = SumOrder.builder().userId(member.getUserId()).build();
+                }
+                sumOrder.addOrder(newOrder.getOrderAmount());
+                sumOrderRepository.save(sumOrder);
             }
         }
+
         membershipOrderRepository.saveAll(orders);
         System.out.println(numberOfMembers + " members and " + orders.size() + " orders generated for membership testing.");
     }

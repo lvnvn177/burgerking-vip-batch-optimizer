@@ -33,6 +33,12 @@ public class Membership {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt; // 수정일
 
+    @Column(name = "last_evaluation_date")
+    private LocalDateTime lastEvaluationDate; // 최종 등급 평가일
+
+    @Column(name = "next_evaluation_date")
+    private LocalDateTime nextEvaluationDate;
+
     @Builder
     public Membership(Long userId, MembershipGrade grade) {
         this.userId = userId;
@@ -42,6 +48,8 @@ public class Membership {
        
         this.createdAt = now;
         this.updatedAt = now;
+        this.lastEvaluationDate = now;
+        this.nextEvaluationDate = now.plusMonths(1);
     }
 
     /**
@@ -58,6 +66,8 @@ public class Membership {
         }
 
         this.updatedAt = evaluationTime;
+        this.lastEvaluationDate = evaluationTime;
+        this.nextEvaluationDate = evaluationTime.plusMonths(1);
 
         return isGradeChanged;
     }

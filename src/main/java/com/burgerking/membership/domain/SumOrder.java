@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "monthly_orders", indexes = {
-    @Index(name = "idx_sum_orders_user_id", columnList = "userId")
+@Table(name = "sum_orders", indexes = {
+    @Index(name = "idx_sum_orders_user_id", columnList = "user_Id")
 })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

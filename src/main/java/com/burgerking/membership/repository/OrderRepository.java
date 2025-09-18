@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository("membershipOrderRepository")
-public interface MembershipOrderRepository extends JpaRepository<Order, Long> {
+@Repository("OrderRepository")
+public interface OrderRepository extends JpaRepository<Order, Long> {
     /**
      * 특정 기간 동안의 사용자 주문 내역을 조회합니다.
      *
