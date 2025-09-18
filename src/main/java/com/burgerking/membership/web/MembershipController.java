@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Membership API", description = "멤버십 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/membership/memberships")
+@RequestMapping("/api/membership")
 public class MembershipController {
     
     private final MembershipService membershipService;
@@ -24,7 +24,7 @@ public class MembershipController {
     /**
      * 특정 사용자의 멤버십 정보를 조회합니다.
      * 사용자의 멤버십 정보가 없으면 새로 생성하여 반환합니다.
-     * GET /api/memberships/{userId}
+     * GET /api/membership/{userId}
      */
     @Operation(summary = "특정 사용자의 멤버십 정보 조회 또는 생성", description = "userId에 해당하는 멤버십 정보를 조회합니다. 존재하지 않으면 새로 생성하여 반환합니다.")
     @ApiResponse(responseCode = "200", description = "멤버십 정보 조회 또는 생성 성공")
@@ -38,7 +38,7 @@ public class MembershipController {
 
     /**
      * (테스트용) 비최적화된 멤버십 등급 조정 배치를 실행합니다.
-     * POST /api/memberships/adjust-batch-non-optimized
+     * POST /api/membership/adjust-batch-non-optimized
      */
     @Operation(summary = "(테스트용) 비최적화된 멤버십 등급 조정 배치 실행", description = "비최적화된 방식으로 멤버십 등급 조정 배치를 실행합니다.")
     @ApiResponse(responseCode = "200", description = "비최적화된 배치 작업 시작")
@@ -50,18 +50,18 @@ public class MembershipController {
 
     /**
      * (테스트용) 최적화된 멤버십 등급 조정 배치를 실행합니다.
-     * POST /api/memberships/adjust-batch
+     * POST /api/membership/adjust-batch-optimized
      */
     @Operation(summary = "(테스트용) 최적화된 멤버십 등급 조정 배치 실행", description = "최적화된 방식으로 멤버십 등급 조정 배치를 실행합니다.")
     @ApiResponse(responseCode = "200", description = "최적화된 배치 작업 시작")
-    @PostMapping("/adjust-batch")
+    @PostMapping("/adjust-batch-optimized")
     public ResponseEntity<String> runOptimizedBatch() {
         membershipService.runOptimizedBatch();
         return ResponseEntity.ok("Optimized batch job started.");
     }
     /**
      * (테스트용) 고객 및 주문 더미 데이터를 생성합니다.
-     * POST /api/memberships/generate-test-data
+     * POST /api/membership/generate-test-data
      */
     @Operation(summary = "(테스트용) 고객 및 주문 더미 데이터 생성", description = "성능 테스트를 위한 고객 및 주문 더미 데이터를 생성합니다.")
     @ApiResponse(responseCode = "200", description = "더미 데이터 생성 성공")
