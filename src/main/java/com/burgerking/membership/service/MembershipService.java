@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class MembershipService {
     
     private final MembershipRepository membershipRepository;
@@ -84,6 +83,7 @@ public class MembershipService {
      * @param userId 사용자 ID
      * @return 멤버십 엔티티 (Optional)
      */
+    @Transactional(readOnly = true)
     public Optional<Membership> getMembershipByUserId(Long userId) {
         return membershipRepository.findByUserId(userId);
     }
