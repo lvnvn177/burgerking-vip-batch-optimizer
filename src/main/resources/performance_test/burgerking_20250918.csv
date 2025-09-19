@@ -1,3 +1,5 @@
 timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
 1758203365914,1484,Non-Optimized Batch Trigger,200,,Membership Batch Trigger 1-1,text,false,"The operation lasted too long: It took 1,484 milliseconds, but should not have lasted longer than 1,000 milliseconds.",283,209,1,1,http://localhost:8080/api/membership/adjust-batch-non-optimized,1484,0,2
 1758203367401,653,Optimized Batch Trigger,200,,Membership Batch Trigger 1-1,text,true,,279,205,1,1,http://localhost:8080/api/membership/adjust-batch-optimized,653,0,0
+1758251204610,933,Non-Optimized Batch Trigger,200,,Membership Batch Trigger 1-1,text,true,,283,209,1,1,http://localhost:8080/api/membership/adjust-batch-non-optimized,933,0,3
+1758251205544,737,Optimized Batch Trigger,200,,Membership Batch Trigger 1-1,text,true,,279,205,1,1,http://localhost:8080/api/membership/adjust-batch-optimized,737,0,0

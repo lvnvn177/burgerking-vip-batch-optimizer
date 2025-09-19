@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +50,13 @@ public class MembershipTestDataGenerator {
 
                 SumOrder sumOrder = sumOrderRepository.findByUserId(member.getUserId());
                 if (sumOrder == null) {
-                    sumOrder = SumOrder.builder().userId(member.getUserId()).build();
+                    sumOrder = SumOrder.builder().
+                    userId(member.getUserId()).
+                    totalAmount(0).
+                    orderCount(0).
+                    createdAt(LocalDateTime.now()).
+                    updatedAt(LocalDateTime.now()).
+                    build();
                 }
                 sumOrder.addOrder(newOrder.getOrderAmount());
                 sumOrderRepository.save(sumOrder);
