@@ -54,28 +54,36 @@ public class MembershipService {
      * 주문이 발생했을 때 멤버십 시스템 관련 데이터를 업데이트합니다.
      * - Order 엔티티를 저장합니다.
      * - 해당 누적 SumOrder를 업데이트하거나 생성합니다.
-     * @param userId 사용자 ID
-     * @param orderNumber 주문 번호
-     * @param orderAmount 주문 금액
+     * @param request 주문 처리 요청 DTO
      */
     @Transactional
-    public void processNewOrder(Long userId, String orderNumber, Integer orderAmount) {
+    public void processOrder(com.burgerking.membership.web.dto.OrderProcessRequest request) {
         // 1. Order 엔티티 저장 (주문 내역 기록)
         Order newOrder = Order.builder()
-            .userId(userId)
-            .orderNumber(orderNumber)
-            .orderAmount(orderAmount)
+            .userId(request.getUserId())
+            .orderNumber(request.getOrderNumber())
+            .orderAmount(request.getOrderAmount())
             .build();
         membershipOrderRepository.save(newOrder);
 
 
         // 2. SumOrder 업데이트 또는 생성
-  
 
-        SumOrder sumOrder = sumOrderRepository.findByUserId(userId);
 
-        sumOrder.addOrder(orderAmount); // 누적 주문 금액 및 횟수 누적 
-        sumOrderRepository.save(sumOrder); // 변경된 SumOrder 저장 
+        SumOrder sumOrder = sumOrderRepository.findByUserId(request.getUserId());
+
+        if(sumOrder == null) {
+            sumOrder = SumOrder.builder()
+                .userId(request.getUserId())
+                .totalAmount(0)
+                .orderCount(0)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+        }
+
+        sumOrder.addOrder(request.getOrderAmount()); // 누적 주문 금액 및 횟수 누적
+        sumOrderRepository.save(sumOrder); // 변경된 SumOrder 저장
     }
 
     /**

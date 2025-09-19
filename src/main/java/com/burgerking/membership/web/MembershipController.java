@@ -75,4 +75,15 @@ public class MembershipController {
         membershipService.generateTestData(numberOfMembers, maxOrdersPerMember);
         return ResponseEntity.status(HttpStatus.OK).body(numberOfMembers + "명의 고객과 최대 " + maxOrdersPerMember + "건의 주문 더미 데이터가 생성되었습니다.");
     }
+    /**
+     * 신규 주문을 처리합니다.
+     * POST /api/membership/orders
+     */
+    @Operation(summary = "신규 주문 처리", description = "신규 주문 정보를 받아 처리하고, 멤버십 등급에 반영합니다.")
+    @ApiResponse(responseCode = "200", description = "주문 처리 성공")
+    @PostMapping("/orders")
+    public ResponseEntity<Void> processOrder(@RequestBody com.burgerking.membership.web.dto.OrderProcessRequest request) {
+        membershipService.processOrder(request);
+        return ResponseEntity.ok().build();
+    }
 }

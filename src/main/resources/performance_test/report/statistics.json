@@ -1,0 +1,50 @@
+{
+  "Optimized Batch Trigger" : {
+    "transaction" : "Optimized Batch Trigger",
+    "sampleCount" : 1,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 653.0,
+    "medianResTime" : 653.0,
+    "minResTime" : 653.0,
+    "maxResTime" : 653.0,
+    "pct1ResTime" : 653.0,
+    "pct2ResTime" : 653.0,
+    "pct3ResTime" : 653.0,
+    "throughput" : 1.5313935681470139,
+    "receivedKBytesPerSec" : 0.4172449272588055,
+    "sentKBytesPerSec" : 0.30657781393568145
+  },
+  "Non-Optimized Batch Trigger" : {
+    "transaction" : "Non-Optimized Batch Trigger",
+    "sampleCount" : 1,
+    "errorCount" : 1,
+    "errorPct" : 100.0,
+    "meanResTime" : 1484.0,
+    "medianResTime" : 1484.0,
+    "minResTime" : 1484.0,
+    "maxResTime" : 1484.0,
+    "pct1ResTime" : 1484.0,
+    "pct2ResTime" : 1484.0,
+    "pct3ResTime" : 1484.0,
+    "throughput" : 0.6738544474393532,
+    "receivedKBytesPerSec" : 0.18623125842318058,
+    "sentKBytesPerSec" : 0.13753474561994608
+  },
+  "총계" : {
+    "transaction" : "총계",
+    "sampleCount" : 2,
+    "errorCount" : 1,
+    "errorPct" : 50.0,
+    "meanResTime" : 1068.5,
+    "medianResTime" : 1068.5,
+    "minResTime" : 653.0,
+    "maxResTime" : 1484.0,
+    "pct1ResTime" : 1484.0,
+    "pct2ResTime" : 1484.0,
+    "pct3ResTime" : 1484.0,
+    "throughput" : 0.9345794392523364,
+    "receivedKBytesPerSec" : 0.25646174065420557,
+    "sentKBytesPerSec" : 0.18892377336448596
+  }
+}

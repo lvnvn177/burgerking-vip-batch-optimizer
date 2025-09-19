@@ -1,6 +1,7 @@
 package com.burgerking.membership.domain;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,17 +12,19 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sum_orders", indexes = {
-    @Index(name = "idx_sum_orders_user_id", columnList = "user_Id")
+    @Index(name = "idx_sum_orders_user_id", columnList = "user_id")
 })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor // 모든 필드를 인자로 받는 생성자 추가
+@Builder // 클래스 레벨로 빌더 이동
 public class SumOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                // 누적 주문 집계 ID
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;            // 사용자 ID
 
     @Column(name = "total_amount", nullable = false)
@@ -35,15 +38,6 @@ public class SumOrder {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt; // 수정일
-
-    @Builder
-    public SumOrder(Long userId) {
-        this.userId = userId;
-        this.totalAmount = 0;
-        this.orderCount = 0;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
     
     /**
      * 주문을 추가하고 금액을 누적합니다.
