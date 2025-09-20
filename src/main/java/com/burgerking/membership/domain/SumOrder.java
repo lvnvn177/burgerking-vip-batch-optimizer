@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-
+/**
+ *  누적 주문 데이터
+ */
 @Entity
 @Table(name = "sum_orders", indexes = {
     @Index(name = "idx_sum_orders_user_id", columnList = "user_id")

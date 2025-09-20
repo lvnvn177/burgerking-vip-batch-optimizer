@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
+/**
+ * 주문 정보 데이터 
+ */
+
 @Entity(name = "MembershipOrder")
 @Table(name = "orders")
 @Getter

@@ -39,6 +39,7 @@ public class MembershipController {
     /**
      * (테스트용) 비최적화된 멤버십 등급 조정 배치를 실행합니다.
      * POST /api/membership/adjust-batch-non-optimized
+     * 
      */
     @Operation(summary = "(테스트용) 비최적화된 멤버십 등급 조정 배치 실행", description = "비최적화된 방식으로 멤버십 등급 조정 배치를 실행합니다.")
     @ApiResponse(responseCode = "200", description = "비최적화된 배치 작업 시작")
