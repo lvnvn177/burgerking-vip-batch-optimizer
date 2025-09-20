@@ -41,7 +41,15 @@ public class MembershipGradeBatchConfig {
 
     private static final int CHUNK_SIZE = 100;
 
-   
+   /**
+    *    
+      멤버쉽 등급 평가를 위한 배치 설정 
+    * @param jobRepository
+    * @param transactionManager
+    * @param entityManagerFactory
+    * @param membershipRepository
+    * @param sumOrderRepository
+    */
     public MembershipGradeBatchConfig(
             JobRepository jobRepository,
             @Qualifier("membershipTransactionManager") PlatformTransactionManager transactionManager,
